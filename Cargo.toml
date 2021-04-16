@@ -1,0 +1,12 @@
+[package]
+name = "urlexpand"
+version = "0.0.1"
+authors = ["Marirs <marirs@gmail.com>"]
+keywords = []
+categories = []
+license-file = "LICENSE"
+readme = "README.md"
+edition = "2018"
+
+[dependencies]
+
