@@ -3,7 +3,7 @@ use regex::Regex;
 use reqwest::blocking::Client;
 
 pub(crate) mod generic;
-pub(crate) mod custom;
+pub(crate) mod twitter;
 pub(crate) mod tinyurl;
 
 /// user agent string

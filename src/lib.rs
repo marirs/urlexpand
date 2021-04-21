@@ -42,7 +42,7 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
 
     match service {
         "tinyurl.com" => resolvers::tinyurl::unshort(url, timeout),
-        "t.co" => resolvers::custom::unshort(url, timeout),
+        "t.co" => resolvers::twitter::unshort(url, timeout),
         _ => resolvers::generic::unshort(url, timeout),
     }
 }
