@@ -3,7 +3,7 @@ use core::time::Duration;
 mod resolvers;
 
 mod services;
-use services::{SERVICES, which_service};
+use services::{which_service, SERVICES};
 
 #[cfg(test)]
 mod tests;

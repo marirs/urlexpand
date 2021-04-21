@@ -21,7 +21,9 @@ fn test_chollo_to() {
     let url = "https://chollo.to/s1q4u";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert!(expanded_url.unwrap().starts_with("https://www.chollometro.com/ofertas/xiaomi-mi-band-6"));
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://www.chollometro.com/ofertas/xiaomi-mi-band-6"));
 }
 
 #[test]
@@ -37,7 +39,9 @@ fn test_goo_gl() {
     let url = "https://goo.gl/cvSjeY";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert!(expanded_url.unwrap().starts_with("https://www.axisbank.com/smartphone/redirect"));
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://www.axisbank.com/smartphone/redirect"));
 }
 
 #[test]
@@ -93,7 +97,10 @@ fn test_t_co() {
     let url = "https://t.co/bYeHhy9kAU";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert_eq!(expanded_url, Some("https://www.youtube.com/watch?v=x6QZn9xiuOE".to_string()));
+    assert_eq!(
+        expanded_url,
+        Some("https://www.youtube.com/watch?v=x6QZn9xiuOE".to_string())
+    );
 }
 
 #[test]

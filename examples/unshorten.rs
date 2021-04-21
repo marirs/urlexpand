@@ -11,10 +11,11 @@ fn main() {
     // println!();
 
     let url = "http://goo.gl/cvSjeY";
-    println!("{}\nis_shortened? {}\nExpanded URL = {:?}",
-             url,
-             urlexpand::is_shortened(url),
-             urlexpand::unshorten(url, Some(Duration::new(30,0)))
+    println!(
+        "{}\nis_shortened? {}\nExpanded URL = {:?}",
+        url,
+        urlexpand::is_shortened(url),
+        urlexpand::unshorten(url, Some(Duration::new(30, 0)))
     );
     println!();
 }
