@@ -44,6 +44,7 @@ cargo run --example unshorten
 - ldn.im
 - lurl.no
 - moourl.com
+- rebrand.ly  
 - rotf.lol
 - smallr.com
 - snipr.com

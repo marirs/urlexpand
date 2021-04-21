@@ -49,6 +49,14 @@ fn test_ldn_im() {
 }
 
 #[test]
+fn test_rebrand_ly() {
+    let url = "https://rebrand.ly/dp8cuo0";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+}
+
+#[test]
 fn test_rotf_lol() {
     let url = "https://rotf.lol/4scu3nzz";
     let expanded_url = unshorten(url, None);
