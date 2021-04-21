@@ -1,11 +1,10 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 23] = [
+pub(crate) static SERVICES: [&str; 22] = [
     "bit.ly",
     "buff.ly",
     "b.link",
     "chollo.to",
-    "cli.gs",
     "cutt.ly",
     "fa.by",
     "gns.io",

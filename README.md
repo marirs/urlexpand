@@ -37,7 +37,6 @@ cargo run --example unshorten
 - buff.ly
 - b.link
 - chollo.to
-- cli.gs
 - cutt.ly
 - fa.by
 - gns.io
