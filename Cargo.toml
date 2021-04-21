@@ -1,12 +1,33 @@
 [package]
 name = "urlexpand"
 version = "0.0.1"
+description = "Expand / Unshorten Shortened URL's"
 authors = ["Marirs <marirs@gmail.com>"]
-keywords = []
-categories = []
+keywords = ["expand", "unshorten", "url"]
+categories = ["web-programming"]
+repository = "https://github.com/marirs/urlexpand"
+homepage = "https://github.com/marirs/urlexpand"
 license-file = "LICENSE"
 readme = "README.md"
 edition = "2018"
 
 [dependencies]
+regex = "1"
+reqwest = { version = "0.11", features = ["blocking"] }
 
+[badges]
+travis-ci = { repository = "marirs/urlexpand" }
+
+[lib]
+name = "urlexpand"
+path = "src/lib.rs"
+
+[profile.dev]
+opt-level = 3
+
+[profile.release]
+codegen-units = 1
+debug-assertions = false
+debug = false
+opt-level = 3
+lto = true
