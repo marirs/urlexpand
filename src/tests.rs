@@ -33,6 +33,14 @@ fn test_cutt_ly() {
 }
 
 #[test]
+fn test_goo_gl() {
+    let url = "https://goo.gl/cvSjeY";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.axisbank.com/smartphone/redirect"));
+}
+
+#[test]
 fn test_gns_io() {
     let url = "https://gns.io/1RQl2";
     let expanded_url = unshorten(url, None);

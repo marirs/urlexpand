@@ -3,18 +3,19 @@ use regex::Regex;
 use reqwest::blocking::Client;
 
 pub(crate) mod generic;
-pub(crate) mod twitter;
+pub(crate) mod google;
 pub(crate) mod tinyurl;
+pub(crate) mod twitter;
 
 /// user agent string
-static USER_AGENT: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36";
+// static USER_AGENT: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36";
 
 /// Build the reqwest client
 pub(crate) fn build_client(timeout: Option<Duration>) -> Option<Client>{
     let client = if timeout == None {
         match Client::builder()
             .danger_accept_invalid_certs(true)
-            .user_agent(USER_AGENT)
+            // .user_agent(USER_AGENT)
             .build() {
             Ok(x) => x,
             Err(_) => return None
@@ -29,7 +30,7 @@ pub(crate) fn build_client(timeout: Option<Duration>) -> Option<Client>{
         match Client::builder()
             .timeout(timeout_duration)
             .danger_accept_invalid_certs(true)
-            .user_agent(USER_AGENT)
+            // .user_agent(USER_AGENT)
             .build() {
             Ok(x) => x,
             Err(_) => return None
