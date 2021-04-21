@@ -8,7 +8,7 @@ pub(crate) mod tinyurl;
 pub(crate) mod twitter;
 
 /// user agent string
-// static USER_AGENT: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36";
+static USER_AGENT: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36";
 
 /// Build the reqwest client
 pub(crate) fn build_client_builder(timeout: Option<Duration>) -> ClientBuilder {
@@ -17,11 +17,11 @@ pub(crate) fn build_client_builder(timeout: Option<Duration>) -> ClientBuilder {
             Client::builder()
                 .timeout(x)
                 .danger_accept_invalid_certs(true)
-            // .user_agent(USER_AGENT)
+                .user_agent(USER_AGENT)
         }
         None => {
             Client::builder().danger_accept_invalid_certs(true)
-            // .user_agent(USER_AGENT)
+                .user_agent(USER_AGENT)
         }
     }
 }

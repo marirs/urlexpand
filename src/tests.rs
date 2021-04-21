@@ -41,7 +41,7 @@ fn test_goo_gl() {
     assert!(expanded_url.is_some());
     assert!(expanded_url
         .unwrap()
-        .starts_with("https://www.axisbank.com/smartphone/redirect"));
+        .starts_with("http://m.axisbank.com/"));
 }
 
 #[test]
