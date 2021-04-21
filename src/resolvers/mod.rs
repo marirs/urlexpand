@@ -29,14 +29,11 @@ pub(crate) fn build_client_builder(timeout: Option<Duration>) -> ClientBuilder {
 /// Extract text from regex pattern
 pub(crate) fn from_re_pattern(txt: &str, p: &str) -> Option<String> {
     let pattern = Regex::new(p).unwrap();
-    match pattern.captures(txt) {
-        Some(c) => {
-            if c.len() > 0 {
-                Some(c[1].to_string())
-            } else {
-                Some(c[0].to_string())
-            }
+    pattern.captures(txt).map(|c| {
+        if c.len() > 0 {
+            c[1].to_string()
+        } else {
+            c[0].to_string()
         }
-        None => return None,
-    }
+    })
 }
