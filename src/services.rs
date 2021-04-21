@@ -8,9 +8,12 @@ pub(crate) static SERVICES: [&str; 23] = [
     "cli.gs",
     "cutt.ly",
     "fa.by",
+    "gns.io",
     "is.gd",
+    "ldn.im",
     "lurl.no",
     "moourl.com",
+    "rotf.lol",
     "smallr.com",
     "snipr.com",
     "snipurl.com",
@@ -20,10 +23,7 @@ pub(crate) static SERVICES: [&str; 23] = [
     "tiny.cc",
     "tinyurl.com",
     "tiny.one",
-    "rotf.lol",
     "tr.im",
-    "gns.io",
-    "ldn.im"
 ];
 
 /// Check and tell which URL Shortner Service is used
