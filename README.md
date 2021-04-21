@@ -1,5 +1,9 @@
 URLEXPAND
 ==========
+![Crates.io](https://img.shields.io/crates/v/urlexpand)
+[![Documentation](https://docs.rs/urlexpand/badge.svg)](https://docs.rs/urlexpand)
+[![Build Status](https://travis-ci.com/marirs/urlexpand.svg?branch=main)](https://travis-ci.com/marirs/urlexpand)
+[![GitHub license](https://img.shields.io/github/license/marirs/urlexpand)](https://github.com/marirs/urlexpand/blob/main/LICENSE)
 
 Expand / Unshorten Shortened URL's.
 
@@ -36,9 +40,12 @@ cargo run --example unshorten
 - cli.gs
 - cutt.ly
 - fa.by
+- gns.io
 - is.gd
+- ldn.im
 - lurl.no
 - moourl.com
+- rotf.lol
 - smallr.com
 - snipr.com
 - snipurl.com
@@ -48,10 +55,7 @@ cargo run --example unshorten
 - tiny.cc
 - tinyurl.com
 - tiny.one
-- rotf.lol
 - tr.im
-- gns.io
-- ldn.im
 
 ### Contribution
 
