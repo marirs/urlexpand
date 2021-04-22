@@ -17,6 +17,16 @@ fn test_b_link() {
 }
 
 #[test]
+fn test_buff_ly() {
+    let url = "https://buff.ly/1GYcFvQ";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://blog.bufferapp.com/url-shorteners?"));
+}
+
+#[test]
 fn test_chollo_to() {
     let url = "https://chollo.to/s1q4u";
     let expanded_url = unshorten(url, None);
