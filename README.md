@@ -38,20 +38,23 @@ cargo run --example unshorten
 - b.link
 - chollo.to
 - cutt.ly
-- fa.by
+- fa.by - part of rebrand.ly
 - goo.gl - Google Service has now stopped their url shortening service 
 - gns.io
 - is.gd
+- iz4.short.gy - short.io Service  
 - ldn.im
 - rebrand.ly  
 - rotf.lol
 - snipr.com
 - snipurl.com
 - snurl.com
+- split.to  
 - t.co
 - tiny.cc
 - tinyurl.com
 - tiny.one
+- tny.sh  
 - tr.im
 
 ### Contribution

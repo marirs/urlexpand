@@ -61,6 +61,22 @@ fn test_is_gd() {
 }
 
 #[test]
+fn test_iz4_short_gy() {
+    let url = "https://iz4.short.gy/mr7KcJ";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.google.com"));
+}
+
+#[test]
+fn test_split_to() {
+    let url = "https://split.to/V1ZhFut";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://google.com"));
+}
+
+#[test]
 fn test_ldn_im() {
     let url = "http://ldn.im/1pNey";
     let expanded_url = unshorten(url, None);
@@ -85,6 +101,17 @@ fn test_rotf_lol() {
 }
 
 #[test]
+fn test_t_co() {
+    let url = "https://t.co/bYeHhy9kAU";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(
+        expanded_url,
+        Some("https://www.youtube.com/watch?v=x6QZn9xiuOE".to_string())
+    );
+}
+
+#[test]
 fn test_tiny_cc() {
     let url = "https://tiny.cc/5ocwtz";
     let expanded_url = unshorten(url, None);
@@ -101,22 +128,19 @@ fn test_tinurl_com() {
 }
 
 #[test]
-fn test_t_co() {
-    let url = "https://t.co/bYeHhy9kAU";
-    let expanded_url = unshorten(url, None);
-    assert!(expanded_url.is_some());
-    assert_eq!(
-        expanded_url,
-        Some("https://www.youtube.com/watch?v=x6QZn9xiuOE".to_string())
-    );
-}
-
-#[test]
-fn tiny_one() {
+fn test_tiny_one() {
     let url = "https://tiny.one/f94uhh4x";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("https://google.com/".to_string()));
+}
+
+#[test]
+fn test_tny_sh() {
+    let url = "https://tny.sh/5C3X9Ss";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("http://google.com/".to_string()));
 }
 
 #[test]
