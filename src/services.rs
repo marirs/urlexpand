@@ -1,7 +1,8 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 24] = [
+pub(crate) static SERVICES: [&str; 26] = [
     "bit.ly",
+    "bit.do",
     "buff.ly",
     "b.link",
     "chollo.to",
@@ -15,6 +16,7 @@ pub(crate) static SERVICES: [&str; 24] = [
     "ow.ly",
     "rebrand.ly",
     "rotf.lol",
+    "sh.st",
     "snipr.com",
     "snipurl.com",
     "snurl.com",

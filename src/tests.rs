@@ -9,6 +9,14 @@ fn test_bit_ly() {
 }
 
 #[test]
+fn test_bit_do() {
+    let url = "http://bit.do/fQy4h";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+}
+
+#[test]
 fn test_b_link() {
     let url = "https://b.link/cx2x2l";
     let expanded_url = unshorten(url, None);
@@ -113,6 +121,14 @@ fn test_rebrand_ly() {
 #[test]
 fn test_rotf_lol() {
     let url = "https://rotf.lol/4scu3nzz";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://google.com/".to_string()));
+}
+
+#[test]
+fn test_sh_st() {
+    let url = "http://sh.st/wVGYZ";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("https://google.com/".to_string()));

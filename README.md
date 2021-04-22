@@ -10,7 +10,7 @@ Expand / Unshorten Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.4"
+urlexpand = "0.0.5"
 ```
 
 and then
@@ -34,6 +34,7 @@ cargo run --example unshorten
 
 ### Current list of URL Shortening services supported
 - bit.ly - Bitly Url Shortner
+- bit.do  
 - buff.ly - Buffer URL Shortner
 - b.link - BLINK
 - chollo.to
@@ -47,6 +48,7 @@ cargo run --example unshorten
 - ow.ly - part of Hootsuite  
 - rebrand.ly  
 - rotf.lol - part of tinyurl.com
+- sh.st - shorte.st
 - snipr.com
 - snipurl.com
 - snurl.com
