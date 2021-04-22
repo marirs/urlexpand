@@ -10,7 +10,7 @@ Expand / Unshorten Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.3"
+urlexpand = "0.0.4"
 ```
 
 and then
@@ -33,29 +33,30 @@ cargo run --example unshorten
 ```
 
 ### Current list of URL Shortening services supported
-- bit.ly
-- buff.ly
-- b.link
+- bit.ly - Bitly Url Shortner
+- buff.ly - Buffer URL Shortner
+- b.link - BLINK
 - chollo.to
 - cutt.ly
 - fa.by - part of rebrand.ly
 - goo.gl - Google Service has now stopped their url shortening service 
-- gns.io
+- gns.io - part of trim (tr.im)
 - is.gd
 - iz4.short.gy - short.io Service  
-- ldn.im
+- ldn.im - part of trim (tr.im)
+- ow.ly - part of Hootsuite  
 - rebrand.ly  
-- rotf.lol
+- rotf.lol - part of tinyurl.com
 - snipr.com
 - snipurl.com
 - snurl.com
-- split.to  
-- t.co
+- split.to - Linksplit  
+- t.co - Twitter
 - tiny.cc
-- tinyurl.com
-- tiny.one
-- tny.sh  
-- tr.im
+- tinyurl.com - TinyURL
+- tiny.one - part of tinyurl.com
+- tny.sh - Linksplit  
+- tr.im - trim (tr.im)
 
 ### Contribution
 
