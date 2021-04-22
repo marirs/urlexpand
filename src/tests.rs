@@ -95,6 +95,14 @@ fn test_ldn_im() {
 }
 
 #[test]
+fn test_ow_ly() {
+    let url = "http://ow.ly/j9qh7";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("http://t.co/cAcQV4QTOS".to_string()));
+}
+
+#[test]
 fn test_rebrand_ly() {
     let url = "https://rebrand.ly/dp8cuo0";
     let expanded_url = unshorten(url, None);
