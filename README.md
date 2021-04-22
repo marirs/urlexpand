@@ -16,12 +16,12 @@ urlexpand = "0.0.3"
 and then
 
 ```rust
-use core::time::Duration;
+use std::time::Duration;
 use urlexpand::unshorten;
 
 fn main() {
     let url = "https://bit.ly/3alqLKi";
-    assert!(unshorten(url, Some(Duration::new(30,0))).is_some());   // with timeout
+    assert!(unshorten(url, Some(Duration::from_secs(10))).is_some());   // with timeout
     assert!(unshorten(url, None).is_some());    // without timeout
 }
 ```

@@ -1,4 +1,4 @@
-use core::time::Duration;
+use std::time::Duration;
 use urlexpand;
 
 fn main() {
@@ -6,7 +6,7 @@ fn main() {
     println!("{}\nis_shortened? {}\nExpanded URL = {:?}",
         url,
         urlexpand::is_shortened(url),
-        urlexpand::unshorten(url, Some(Duration::new(30,0)))
+        urlexpand::unshorten(url, Some(Duration::from_secs(10)))
     );
     println!();
 }
