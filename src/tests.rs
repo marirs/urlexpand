@@ -49,7 +49,15 @@ fn test_gns_io() {
     let url = "https://gns.io/1RQl2";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
+    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
+}
+
+#[test]
+fn test_is_gd() {
+    let url = "https://is.gd/EuvYes";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.google.com"));
 }
 
 #[test]
@@ -57,7 +65,7 @@ fn test_ldn_im() {
     let url = "http://ldn.im/1pNey";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
+    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
 }
 
 #[test]
@@ -73,12 +81,12 @@ fn test_rotf_lol() {
     let url = "https://rotf.lol/4scu3nzz";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+    assert_eq!(expanded_url, Some("https://google.com/".to_string()));
 }
 
 #[test]
 fn test_tiny_cc() {
-    let url = "http://tiny.cc/5ocwtz";
+    let url = "https://tiny.cc/5ocwtz";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
@@ -108,7 +116,7 @@ fn tiny_one() {
     let url = "https://tiny.one/f94uhh4x";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+    assert_eq!(expanded_url, Some("https://google.com/".to_string()));
 }
 
 #[test]
@@ -116,5 +124,5 @@ fn test_tr_im() {
     let url = "https://tr.im/1iMz2";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
+    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
 }

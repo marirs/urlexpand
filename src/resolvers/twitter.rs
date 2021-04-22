@@ -1,9 +1,9 @@
 // Custom Resolver
-use super::{build_client_builder, from_re_pattern};
+use super::{get_client_builder, from_re_pattern};
 use core::time::Duration;
 
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
-    let client = match build_client_builder(timeout).build() {
+    let client = match get_client_builder(timeout).build() {
         Ok(c) => c,
         Err(_) => return None,
     };

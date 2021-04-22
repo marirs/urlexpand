@@ -41,7 +41,6 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     };
 
     match service {
-        "goo.gl" => resolvers::google::unshort(url, timeout),
         "tinyurl.com" => resolvers::tinyurl::unshort(url, timeout),
         "t.co" => resolvers::twitter::unshort(url, timeout),
         _ => resolvers::generic::unshort(url, timeout),
