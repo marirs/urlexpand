@@ -1,5 +1,5 @@
 // Generic Resolver
-use core::time::Duration;
+use std::time::Duration;
 use reqwest::redirect::Policy;
 
 use super::get_client_builder;
@@ -23,3 +23,4 @@ pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
     let response = client.get(url).send().ok().unwrap();
     Some(response.url().to_string())
 }
+

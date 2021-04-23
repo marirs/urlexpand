@@ -1,6 +1,6 @@
 // TinyUrl.Com Service
 use super::{get_client_builder, from_re_pattern};
-use core::time::Duration;
+use std::time::Duration;
 
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
     let client = match get_client_builder(timeout).build() {
