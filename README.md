@@ -47,6 +47,7 @@ cargo run --example unshorten
 - is.gd
 - iz4.short.gy - short.io Service  
 - ldn.im - part of trim (tr.im)
+- nmc.sg - instra corporation pty  
 - ow.ly - part of Hootsuite  
 - rebrand.ly  
 - rotf.lol - part of tinyurl.com

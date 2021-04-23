@@ -1,6 +1,6 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 30] = [
+pub(crate) static SERVICES: [&str; 31] = [
     "bit.ly",
     "bit.do",
     "buff.ly",
@@ -15,6 +15,7 @@ pub(crate) static SERVICES: [&str; 30] = [
     "is.gd",
     "iz4.short.gy",
     "ldn.im",
+    "nmc.sg",
     "ow.ly",
     "rebrand.ly",
     "rotf.lol",
