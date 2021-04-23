@@ -53,6 +53,14 @@ fn test_cutt_ly() {
 }
 
 #[test]
+fn test_git_io() {
+    let url = "https://git.io/JOiM6";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.github.com/marirs/urlexpand".to_string()));
+}
+
+#[test]
 fn test_goo_gl() {
     let url = "https://goo.gl/cvSjeY";
     let expanded_url = unshorten(url, None);
@@ -183,4 +191,12 @@ fn test_tr_im() {
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert!(expanded_url.unwrap().starts_with("https://google.com/"));
+}
+
+#[test]
+fn test_zpr_io() {
+    let url = "http://zpr.io/nniJB";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("http://www.archiveteam.org/".to_string()));
 }

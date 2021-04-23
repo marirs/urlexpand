@@ -10,7 +10,7 @@ Expand / Unshorten Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.5"
+urlexpand = "0.0.6"
 ```
 
 and then
@@ -40,6 +40,7 @@ cargo run --example unshorten
 - chollo.to
 - cutt.ly
 - fa.by - part of rebrand.ly
+- git.io - Github  
 - goo.gl - Google Service has now stopped their url shortening service 
 - gns.io - part of trim (tr.im)
 - is.gd
@@ -59,6 +60,7 @@ cargo run --example unshorten
 - tiny.one - part of tinyurl.com
 - tny.sh - Linksplit  
 - tr.im - trim (tr.im)
+- zpr.io - Zapier
 
 ### Contribution
 

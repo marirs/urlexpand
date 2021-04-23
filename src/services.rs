@@ -1,6 +1,6 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 26] = [
+pub(crate) static SERVICES: [&str; 28] = [
     "bit.ly",
     "bit.do",
     "buff.ly",
@@ -8,6 +8,7 @@ pub(crate) static SERVICES: [&str; 26] = [
     "chollo.to",
     "cutt.ly",
     "fa.by",
+    "git.io",
     "goo.gl",
     "gns.io",
     "is.gd",
@@ -27,6 +28,7 @@ pub(crate) static SERVICES: [&str; 26] = [
     "tiny.one",
     "tny.sh",
     "tr.im",
+    "zpr.io",
 ];
 
 /// Check and tell which URL Shortner Service is used
