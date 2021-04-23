@@ -53,6 +53,14 @@ fn test_cutt_ly() {
 }
 
 #[test]
+fn test_flip_it() {
+    let url = "http://flip.it/3jbsWn";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.thefuturist.co/why-is-ethereum-the-future-of-finance/".to_string()));
+}
+
+#[test]
 fn test_git_io() {
     let url = "https://git.io/JOiM6";
     let expanded_url = unshorten(url, None);
@@ -105,6 +113,14 @@ fn test_split_to() {
 #[test]
 fn test_ldn_im() {
     let url = "http://ldn.im/1pNey";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
+}
+
+#[test]
+fn test_smc_sg() {
+    let url = "https://smu.sg/4l4";
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert!(expanded_url.unwrap().starts_with("https://google.com/"));
