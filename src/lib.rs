@@ -41,6 +41,13 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     };
 
     match service {
+        "adf.ly" |
+        "fumacrom.com" |
+        "intamema.com" |
+        "j.gs" |
+        "q.gs" => resolvers::adfly::unshort(url, timeout),
+        "nowlinks.net" => resolvers::nowlinks::unshort(url, timeout),
+        "rlu.ru" => resolvers::rlu::unshort(url, timeout),
         "tinyurl.com" => resolvers::tinyurl::unshort(url, timeout),
         _ => resolvers::generic::unshort(url, timeout),
     }

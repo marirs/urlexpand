@@ -10,7 +10,7 @@ Expand / Unshorten Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.7"
+urlexpand = "0.0.8"
 ```
 
 and then
@@ -33,37 +33,52 @@ cargo run --example unshorten
 ```
 
 ### Current list of URL Shortening services supported
-- bit.ly - Bitly Url Shortner
-- bit.do  
-- buff.ly - Buffer URL Shortner
-- b.link - BLINK
-- chollo.to
-- cutt.ly
-- fa.by - part of rebrand.ly
-- flip.it - Flipboard  
-- git.io - Github  
-- goo.gl - Google Service has now stopped their url shortening service 
-- gns.io - part of trim (tr.im)
-- is.gd
-- iz4.short.gy - short.io Service  
-- ldn.im - part of trim (tr.im)
-- nmc.sg - instra corporation pty  
-- ow.ly - part of Hootsuite  
-- rebrand.ly  
-- rotf.lol - part of tinyurl.com
-- sh.st - shorte.st
-- smu.sg - Singapore Management University  
-- snipr.com
-- snipurl.com
-- snurl.com
-- split.to - Linksplit  
-- t.co - Twitter
-- tiny.cc
-- tinyurl.com - TinyURL
-- tiny.one - part of tinyurl.com
-- tny.sh - Linksplit  
-- tr.im - trim (tr.im)
-- zpr.io - Zapier
+- `adf.ly` - Adfly
+- `atominik.com` - part of Adf.ly 
+- `b.link` - BLINK
+- `bit.ly` - Bitly Url Shortner
+- `bit.do` - Bitdo
+- `bn.gy` - BNGY  
+- `buff.ly` - Buffer URL Shortner
+- `chollo.to` - Chollo Ecommerce
+- `cutt.ly` - Cuttly
+- `fa.by` - part of rebrand.ly
+- `fb.me` - Facebook  
+- `flip.it` - Flipboard  
+- `fumacrom.com` - part of Adf.ly  
+- `git.io` - Github  
+- `goo.gl` - Google Service has now stopped their url shortening service 
+- `gns.io` - part of trim (tr.im)
+- `hmm.rs` - HMM.RS  
+- `intamema.com` part of Adf.ly  
+- `is.gd` - IS GD
+- `iz4.short.gy` - short.io Service  
+- `j.gs` - part of Adf.ly
+- `kutt.it` - Kutt
+- `ldn.im` - part of trim (tr.im)
+- `nmc.sg` - instra corporation pty
+- `nowlinks.net` - Now Links  
+- `ow.ly` - part of Hootsuite  
+- `q.gs` - part of Adfly  
+- `rebrand.ly` - Rebrandly
+- `rlu.ru` - RLU.RU  
+- `rotf.lol` - part of tinyurl.com
+- `s.coop` - SCOOP  
+- `sh.st` - shorte.st
+- `smu.sg` - Singapore Management University  
+- `snipr.com`
+- `snipurl.com`
+- `snurl.com`
+- `split.to` - Linksplit  
+- `t.co` - Twitter
+- `tiny.cc` - TinyCC
+- `tinyurl.com` - TinyURL
+- `tiny.one` - part of tinyurl.com
+= `tny.im` - TNY.IM  
+- `tny.sh` - Linksplit  
+- `tr.im` - trim (tr.im)
+- `v.gd` - V GD  
+- `zpr.io` - Zapier
 
 ### Contribution
 
