@@ -42,6 +42,7 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
 
     match service {
         "adf.ly" |
+        "atominik.com" |
         "fumacrom.com" |
         "intamema.com" |
         "j.gs" |

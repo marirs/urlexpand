@@ -20,6 +20,14 @@ fn test_adf_ly() {
 }
 
 #[test]
+fn test_atominik_com() {
+    let url = "https://atominik.com/2YTd";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().contains("weebly.com"));
+}
+
+#[test]
 fn test_bit_ly() {
     let url = "https://bit.ly/3alqLKi";
     let expanded_url = unshorten(url, None);
