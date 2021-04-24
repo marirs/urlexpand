@@ -10,7 +10,7 @@ Expand / Unshorten Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.8"
+urlexpand = "0.0.9"
 ```
 
 and then
@@ -34,6 +34,7 @@ cargo run --example unshorten
 
 ### Current list of URL Shortening services supported
 - `adf.ly` - Adfly
+- `amzn.to` - Amazon  
 - `atominik.com` - part of Adf.ly 
 - `b.link` - BLINK
 - `bit.ly` - Bitly Url Shortner
@@ -41,6 +42,8 @@ cargo run --example unshorten
 - `bn.gy` - BNGY  
 - `buff.ly` - Buffer URL Shortner
 - `chollo.to` - Chollo Ecommerce
+- `cli.re` - Capsulink
+- `cli.fm` - Capsulink  
 - `cutt.ly` - Cuttly
 - `fa.by` - part of rebrand.ly
 - `fb.me` - Facebook  
@@ -52,25 +55,33 @@ cargo run --example unshorten
 - `hmm.rs` - HMM.RS  
 - `intamema.com` part of Adf.ly  
 - `is.gd` - IS GD
-- `iz4.short.gy` - short.io Service  
+- `iz4.short.gy` - SHORT.IO Service  
 - `j.gs` - part of Adf.ly
+- `j.mp` - part of Bitly  
 - `kutt.it` - Kutt
 - `ldn.im` - part of trim (tr.im)
+- `linklyhq.com` - Linkly HQ  
+- `mzl.la` - Mozilla Org  
 - `nmc.sg` - instra corporation pty
 - `nowlinks.net` - Now Links  
 - `ow.ly` - part of Hootsuite  
 - `q.gs` - part of Adfly  
 - `rebrand.ly` - Rebrandly
+- `rb.gy` - RBGY Free URL Shortner  
 - `rlu.ru` - RLU.RU  
 - `rotf.lol` - part of tinyurl.com
 - `s.coop` - SCOOP  
 - `sh.st` - shorte.st
+- `soo.gd` - Soo.Gd  
+- `shortcm.xyz` - part of SHORT.IO  
+- `shorturl.at` - ShortURL At  
 - `smu.sg` - Singapore Management University  
 - `snipr.com`
 - `snipurl.com`
 - `snurl.com`
 - `split.to` - Linksplit  
 - `t.co` - Twitter
+- `t.ly` - T.LY Link Shortener  
 - `tiny.cc` - TinyCC
 - `tinyurl.com` - TinyURL
 - `tiny.one` - part of tinyurl.com
@@ -78,6 +89,8 @@ cargo run --example unshorten
 - `tny.sh` - Linksplit  
 - `tr.im` - trim (tr.im)
 - `v.gd` - V GD  
+- `virg.in` - Virgin  
+- `yourwish.es` - Your Wishes  
 - `zpr.io` - Zapier
 
 ### Contribution

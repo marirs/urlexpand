@@ -5,7 +5,7 @@ use std::{
 };
 use base64;
 
-use super::get_client_builder;
+use super::from_url;
 
 /// URL Decode
 fn url_decode(url: &str) -> String {
@@ -75,14 +75,9 @@ fn decode_ysmm(encoded: &str) -> Option<String> {
 
 /// URL Expander for ADF.LY and its associated shortners
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
-    let client = match get_client_builder(timeout).build() {
-        Ok(c) => c,
-        Err(_) => return None,
-    };
-    let response = client.get(url).send().ok().unwrap();
-    let html = match response.text(){
-        Ok(t) => t,
-        Err(_) => return None
+    let html = match from_url(url, timeout) {
+        Some(t) => t,
+        None => return None
     };
 
     let ysmm = match html.split("ysmm = '").nth(1) {

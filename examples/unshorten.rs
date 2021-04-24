@@ -2,7 +2,7 @@ use std::time::Duration;
 use urlexpand;
 
 fn main() {
-    let url = "https://bit.ly/3alqLKi";
+    let url = "https://soo.gd/AZaM";
     println!("{}\nis_shortened? {}\nExpanded URL = {:?}",
         url,
         urlexpand::is_shortened(url),

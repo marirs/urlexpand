@@ -47,8 +47,11 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
         "intamema.com" |
         "j.gs" |
         "q.gs" => resolvers::adfly::unshort(url, timeout),
+        "adfoc.us" => resolvers::adfocus::unshort(url, timeout),
         "nowlinks.net" => resolvers::nowlinks::unshort(url, timeout),
         "rlu.ru" => resolvers::rlu::unshort(url, timeout),
+        "shorturl.at" => resolvers::shorturl::unshort(url, timeout),
+        "soo.gd" => resolvers::meta_refresh::unshort(url, timeout),
         "tinyurl.com" => resolvers::tinyurl::unshort(url, timeout),
         _ => resolvers::generic::unshort(url, timeout),
     }

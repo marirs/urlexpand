@@ -9,7 +9,7 @@ pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
         None => return None,
     };
 
-    return from_re_pattern(
+    from_re_pattern(
         &html,
         "Here is the URL which you want to visit:<br><br>\n<a href=\"([^\">]*)"
     )

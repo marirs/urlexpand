@@ -18,6 +18,21 @@ fn test_adf_ly() {
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("http://google.com".to_string()));
 }
+#[test]
+fn test_adfoc_us() {
+    let url = "http://adfoc.us/x1";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("http://google.com/".to_string()));
+}
+
+#[test]
+fn test_amzn_to() {
+    let url = "https://amzn.to/2SdesXo";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.amazon.com/gp/offer-listing/"));
+}
 
 #[test]
 fn test_atominik_com() {
@@ -67,6 +82,14 @@ fn test_buff_ly() {
     assert!(expanded_url
         .unwrap()
         .starts_with("https://blog.bufferapp.com/url-shorteners?"));
+}
+
+#[test]
+fn test_cli_re() {
+    let url = "https://cli.re/wxbz38";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
 }
 
 #[test]
@@ -194,6 +217,22 @@ fn test_ldn_im() {
 }
 
 #[test]
+fn test_linklyhq_com() {
+    let url = "https://l.linklyhq.com/l/QebZ";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
+}
+
+#[test]
+fn test_mlz_la() {
+    let url = "https://mzl.la/3eqJ565";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("http://support.mozilla.org/".to_string()));
+}
+
+#[test]
 fn test_nowlinks_net() {
     let url = "http://nowlinks.net/a0BYBC";
     let expanded_url = unshorten(url, None);
@@ -215,6 +254,14 @@ fn test_q_gs() {
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("https://www.google.com".to_string()));
+}
+
+#[test]
+fn test_rb_gy() {
+    let url = "https://rb.gy/ciq6si";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://google.com/".to_string()));
 }
 
 #[test]
@@ -258,6 +305,14 @@ fn test_sh_st() {
 }
 
 #[test]
+fn test_shorturl_at() {
+    let url = "https://shorturl.at/kmrEO";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com".to_string()));
+}
+
+#[test]
 fn test_split_to() {
     let url = "https://split.to/V1ZhFut";
     let expanded_url = unshorten(url, None);
@@ -282,6 +337,22 @@ fn test_t_co() {
         expanded_url,
         Some("https://www.youtube.com/watch?v=x6QZn9xiuOE".to_string())
     );
+}
+
+#[test]
+fn test_t_ly() {
+    let url = "https://t.ly/2ESW";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+}
+
+#[test]
+fn test_t2m_io() {
+    let url = "https://t2m.io/SSQhKqJ2";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
 }
 
 #[test]
@@ -338,6 +409,22 @@ fn test_v_gd() {
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+}
+
+#[test]
+fn test_virg_in() {
+    let url = "https://virg.in/9sj";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.virginactive.co.za/quest".to_string()));
+}
+
+#[test]
+fn test_yourwish_es() {
+    let url = "http://yourwish.es/oxgyc";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.amazon.com/Sabrent-Thunderbolt"));
 }
 
 #[test]

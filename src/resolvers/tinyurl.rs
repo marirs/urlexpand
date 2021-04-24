@@ -9,5 +9,5 @@ pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
         None => return None,
     };
 
-    return from_re_pattern(&text, "\"redirecturl\" href=\"(.*)\">")
+    from_re_pattern(&text, "\"redirecturl\" href=\"(.*)\">")
 }
