@@ -5,7 +5,7 @@ URLEXPAND
 [![Build Status](https://travis-ci.com/marirs/urlexpand.svg?branch=main)](https://travis-ci.com/marirs/urlexpand)
 [![GitHub license](https://img.shields.io/github/license/marirs/urlexpand)](https://github.com/marirs/urlexpand/blob/main/LICENSE)
 
-Expand / Unshorten Shortened URL's.
+Expand / Unshorten an exhaustive list of Shortened URL's.
 
 ### Example Usage
 
@@ -82,6 +82,7 @@ cargo run --example unshorten
 - `split.to` - Linksplit  
 - `t.co` - Twitter
 - `t.ly` - T.LY Link Shortener  
+- `t2m.io` - T2M aka "Text to Marketing" (t2mio.com)
 - `tiny.cc` - TinyCC
 - `tinyurl.com` - TinyURL
 - `tiny.one` - part of tinyurl.com

@@ -1,9 +1,9 @@
 [package]
 name = "urlexpand"
 version = "0.0.9"
-description = "Expand / Unshorten Shortened URL's"
+description = "Expand / Unshorten an exhaustive list of Shortened URL's"
 authors = ["Marirs <marirs@gmail.com>"]
-keywords = ["expand", "unshorten", "url"]
+keywords = ["expand", "unshorten", "url", "link"]
 categories = ["web-programming"]
 repository = "https://github.com/marirs/urlexpand"
 homepage = "https://github.com/marirs/urlexpand"
