@@ -12,7 +12,7 @@ pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
 
     let click_url = match html.split("click_url = \"").nth(1) {
         Some(r) => {
-            match r.splitn(2, "\";").nth(0) {
+            match r.splitn(2, "\";").next() {
                 Some(t) => t,
                 None => return None
             }

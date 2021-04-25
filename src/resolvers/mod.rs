@@ -8,6 +8,7 @@ use reqwest::{
 pub(crate) mod adfly;
 pub(crate) mod adfocus;
 pub(crate) mod generic;
+pub(crate) mod window;
 pub(crate) mod meta_refresh;
 pub(crate) mod nowlinks;
 pub(crate) mod rlu;
@@ -72,7 +73,6 @@ pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
 
         return Some(text)
     }
-
     None
 }
 
@@ -83,11 +83,7 @@ pub(crate) fn from_re_pattern(txt: &str, p: &str) -> Option<String> {
         Err(_) => return None
     };
 
-    pattern.captures(txt).map(|c| {
-        if c.len() > 0 {
-            c[1].to_string()
-        } else {
-            c[0].to_string()
-        }
-    })
+    pattern
+        .captures(txt)
+        .map(|c|c[c.len()-1].to_string())
 }

@@ -1,6 +1,6 @@
 [package]
 name = "urlexpand"
-version = "0.0.9"
+version = "0.0.10"
 description = "Expand / Unshorten an exhaustive list of Shortened URL's"
 authors = ["Marirs <marirs@gmail.com>"]
 keywords = ["expand", "unshorten", "url", "link"]
@@ -13,8 +13,10 @@ edition = "2018"
 
 [dependencies]
 base64 = "0.13.0"
-regex = "1.4.5"
+regex = "1.4.6"
+percent-encoding = "2.1.0"
 reqwest = { version = "0.11.3", features = ["blocking"] }
+url = "2.2.1"
 
 [badges]
 travis-ci = { repository = "marirs/urlexpand" }

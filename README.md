@@ -10,7 +10,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.9"
+urlexpand = "0.0.10"
 ```
 
 and then
@@ -29,11 +29,12 @@ fn main() {
 ### Running the example
 
 ```bash
-cargo run --example unshorten
+cargo run --example unshorten https://bit.ly/3alqLKi
 ```
 
 ### Current list of URL Shortening services supported
 - `adf.ly` - Adfly
+- `adfoc.us` - AdFocus  
 - `amzn.to` - Amazon  
 - `atominik.com` - part of Adf.ly 
 - `b.link` - BLINK
@@ -45,17 +46,19 @@ cargo run --example unshorten
 - `cli.re` - Capsulink
 - `cli.fm` - Capsulink  
 - `cutt.ly` - Cuttly
+- `db.tt` - Dropbox  
 - `fa.by` - part of rebrand.ly
 - `fb.me` - Facebook  
 - `flip.it` - Flipboard  
-- `fumacrom.com` - part of Adf.ly  
+- `fumacrom.com` - part of Adf.ly
 - `git.io` - Github  
 - `goo.gl` - Google Service has now stopped their url shortening service 
 - `gns.io` - part of trim (tr.im)
 - `hmm.rs` - HMM.RS  
+- `hyperurl.co` - SmartUrl.It  
+- `ity.im` - ity.im (it'-ee-i-am)
 - `intamema.com` part of Adf.ly  
 - `is.gd` - IS GD
-- `iz4.short.gy` - SHORT.IO Service  
 - `j.gs` - part of Adf.ly
 - `j.mp` - part of Bitly  
 - `kutt.it` - Kutt
@@ -66,14 +69,18 @@ cargo run --example unshorten
 - `nowlinks.net` - Now Links  
 - `ow.ly` - part of Hootsuite  
 - `q.gs` - part of Adfly  
+- `qr.ae` - Quora  
 - `rebrand.ly` - Rebrandly
 - `rb.gy` - RBGY Free URL Shortner  
 - `rlu.ru` - RLU.RU  
 - `rotf.lol` - part of tinyurl.com
 - `s.coop` - SCOOP  
+- `s.id` - SID (home.s.id)  
 - `sh.st` - shorte.st
 - `soo.gd` - Soo.Gd  
 - `shortcm.xyz` - part of SHORT.IO  
+- `short.gy` - SHORT.IO Service
+- `shortcm.xyz` - ShortCm
 - `shorturl.at` - ShortURL At  
 - `smu.sg` - Singapore Management University  
 - `snipr.com`
@@ -84,13 +91,17 @@ cargo run --example unshorten
 - `t.ly` - T.LY Link Shortener  
 - `t2m.io` - T2M aka "Text to Marketing" (t2mio.com)
 - `tiny.cc` - TinyCC
+- `tiny.pl` - TinyPL  
 - `tinyurl.com` - TinyURL
 - `tiny.one` - part of tinyurl.com
 = `tny.im` - TNY.IM  
 - `tny.sh` - Linksplit  
 - `tr.im` - trim (tr.im)
+- `u.to` - U TO  
 - `v.gd` - V GD  
 - `virg.in` - Virgin  
+- `x.co` - GoDaddy URL Shortner (currently shutdown)  
+- `y2u.be` - YouTube URL Shortner by Firewrench inc.  
 - `yourwish.es` - Your Wishes  
 - `zpr.io` - Zapier
 
