@@ -1,10 +1,7 @@
 // Generic Resolver
 use std::time::Duration;
 
-use super::{
-    get_client_builder,
-    custom_redirect_policy,
-};
+use super::{custom_redirect_policy, get_client_builder};
 
 /// Generic URL Expander
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
@@ -17,4 +14,3 @@ pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
     let response = client.get(url).send().ok().unwrap();
     Some(response.url().to_string())
 }
-

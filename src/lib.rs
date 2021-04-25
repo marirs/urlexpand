@@ -1,5 +1,5 @@
 use std::time::Duration;
-use url::{Url, ParseError};
+use url::{ParseError, Url};
 
 mod resolvers;
 
@@ -39,7 +39,7 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     // Check to make sure url is valid
     let url = match validate(url) {
         Some(u) => u,
-        None => return None
+        None => return None,
     };
 
     let service = match which_service(&url) {
@@ -49,19 +49,14 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
 
     match service {
         // Adfly Resolver
-        "adf.ly" |
-        "atominik.com" |
-        "fumacrom.com" |
-        "intamema.com" |
-        "j.gs" |
-        "q.gs" => resolvers::adfly::unshort(&url, timeout),
+        "adf.ly" | "atominik.com" | "fumacrom.com" | "intamema.com" | "j.gs" | "q.gs" => {
+            resolvers::adfly::unshort(&url, timeout)
+        }
 
         // Redirect Resolvers
-        "ity.im" |
-        "nowlinks.net" |
-        "rlu.ru" |
-        "tinyurl.com" |
-        "u.to" => resolvers::redirect::unshort(&url, timeout),
+        "ity.im" | "nowlinks.net" | "rlu.ru" | "tinyurl.com" | "u.to" => {
+            resolvers::redirect::unshort(&url, timeout)
+        }
 
         // Meta Refresh Resolvers
         "soo.gd" => resolvers::refresh::unshort(&url, timeout),
@@ -77,25 +72,23 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
 
 /// Validate & return a clean URL
 fn validate(u: &str) -> Option<String> {
-    let parts = match  Url::parse(u) {
+    let parts = match Url::parse(u) {
         Ok(p) => p,
-        Err(e) => {
-            match e {
-                ParseError::RelativeUrlWithoutBase => {
-                    let new_url = format!("https://{}", u);
-                    match Url::parse(&new_url) {
-                        Ok(p) => p,
-                        Err(_) => return None
-                    }
+        Err(e) => match e {
+            ParseError::RelativeUrlWithoutBase => {
+                let new_url = format!("https://{}", u);
+                match Url::parse(&new_url) {
+                    Ok(p) => p,
+                    Err(_) => return None,
                 }
-                _ => return None
             }
-        }
+            _ => return None,
+        },
     };
 
     let domain = match parts.domain() {
         Some(d) => d,
-        None => return None
+        None => return None,
     };
     if is_shortened(domain) {
         Some(parts.to_string())

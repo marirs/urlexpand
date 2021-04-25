@@ -1,15 +1,12 @@
 // Shortner services that Redirects
+use super::{from_re, get_client_builder};
 use std::time::Duration;
-use super::{
-    get_client_builder,
-    from_re,
-};
 
 static RE_PATTERNS: [&str; 5] = [
     r#"Here is the URL which you want to visit:<br><br>\n<a href="([^">]*)"#, // rlu.ru
-    r#"window.open\("([^"\)]*)"#, // redirects using window.open
-    r#"window.location='(.*)';"#, // redirects using window.location
-    r#"target='_blank'>([^<]*)"#, // nowlinks.net
+    r#"window.open\("([^"\)]*)"#,    // redirects using window.open
+    r#"window.location='(.*)';"#,    // redirects using window.location
+    r#"target='_blank'>([^<]*)"#,    // nowlinks.net
     r#""redirecturl" href="(.*)">"#, // tinyurl.com
 ];
 
@@ -22,7 +19,7 @@ pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
 
     let response = match client.get(url).send() {
         Ok(r) => r,
-        Err(_) => return None
+        Err(_) => return None,
     };
 
     let text = match response.text() {

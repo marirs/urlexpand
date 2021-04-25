@@ -1,6 +1,6 @@
 // All sites that performs Meta Refresh
+use super::{from_re, from_url};
 use std::time::Duration;
-use super::{from_url, from_re};
 
 /// URL Expander for Shorten links that uses Meta Refresh to redirect
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {

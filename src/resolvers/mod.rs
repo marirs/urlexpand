@@ -17,17 +17,13 @@ static UA: &str = "curl/7.72.0";
 /// get the reqwest ClientBuilder
 pub(crate) fn get_client_builder(timeout: Option<Duration>) -> ClientBuilder {
     match timeout {
-        Some(x) => {
-            Client::builder()
-                .timeout(x)
-                .user_agent(UA)
-                .danger_accept_invalid_certs(true)
-        }
-        None => {
-            Client::builder()
-                .user_agent(UA)
-                .danger_accept_invalid_certs(true)
-        }
+        Some(x) => Client::builder()
+            .timeout(x)
+            .user_agent(UA)
+            .danger_accept_invalid_certs(true),
+        None => Client::builder()
+            .user_agent(UA)
+            .danger_accept_invalid_certs(true),
     }
 }
 
@@ -52,13 +48,16 @@ pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
 
     let response = match client
         .get(url)
-        .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+        .header(
+            "Accept",
+            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        )
         .header("Accept-Language", "en-US,en;q=0.5")
         .header("Cache-Control", "no-cache")
         .send()
     {
         Ok(r) => r,
-        Err(_) => return None
+        Err(_) => return None,
     };
 
     let status = response.status();
@@ -68,7 +67,7 @@ pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
             _ => return None,
         };
 
-        return Some(text)
+        return Some(text);
     }
     None
 }
@@ -78,9 +77,9 @@ fn from_re(txt: &str, p: &str) -> Option<String> {
     Regex::new(p)
         .ok()
         .and_then(|pattern| {
-            pattern.captures(txt).and_then(|c| {
-                c.iter().skip(1).flatten().next()
-            })
+            pattern
+                .captures(txt)
+                .and_then(|c| c.iter().skip(1).flatten().next())
         })
         .map(|x| x.as_str().to_string())
 }

@@ -1,11 +1,7 @@
 // adf.ly and its associated domains
-use std::{
-    str::from_utf8,
-    time::Duration,
-    collections::VecDeque,
-};
-use percent_encoding::percent_decode_str;
 use super::from_url;
+use percent_encoding::percent_decode_str;
+use std::{collections::VecDeque, str::from_utf8, time::Duration};
 
 /// Decode the YSMM variable value to fetch the dest url
 fn decode_ysmm(ysmm: &str) -> Option<String> {
@@ -24,6 +20,7 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
             numbers.push((j, val_parsed));
         }
     }
+
     for items in numbers.chunks(2) {
         if let [x, y] = items {
             let xor = x.1 ^ y.1;
@@ -35,12 +32,11 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
 
     let buf = base64::decode(data.drain(..).collect::<String>()).unwrap();
     match from_utf8(&buf) {
-        Ok(v) => v[16..v.len() - 16].split("dest=").nth(1).map(|url| {
-            percent_decode_str(url)
-                .decode_utf8_lossy()
-                .into()
-        }),
-        Err(_) => None // Invalid UTF-8 sequence,
+        Ok(v) => v[16..v.len() - 16]
+            .split("dest=")
+            .nth(1)
+            .map(|url| percent_decode_str(url).decode_utf8_lossy().into()),
+        Err(_) => None, // Invalid UTF-8 sequence,
     }
 }
 
@@ -48,17 +44,15 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
     let html = match from_url(url, timeout) {
         Some(t) => t,
-        None => return None
+        None => return None,
     };
 
     let ysmm = match html.split("ysmm = '").nth(1) {
-        Some(r) => {
-            match r.splitn(2, "';").next() {
-                Some(t) => t,
-                None => return None
-            }
+        Some(r) => match r.splitn(2, "';").next() {
+            Some(t) => t,
+            None => return None,
         },
-        None => return None
+        None => return None,
     };
 
     decode_ysmm(ysmm)
