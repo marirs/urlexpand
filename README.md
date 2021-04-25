@@ -10,7 +10,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.0.10"
+urlexpand = "0.1.0"
 ```
 
 and then

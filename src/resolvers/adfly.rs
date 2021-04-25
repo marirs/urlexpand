@@ -40,7 +40,7 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
                 .decode_utf8_lossy()
                 .into()
         }),
-        Err(_) => return None // Invalid UTF-8 sequence,
+        Err(_) => None // Invalid UTF-8 sequence,
     }
 }
 

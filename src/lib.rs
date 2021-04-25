@@ -48,20 +48,29 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     };
 
     match service {
+        // Adfly Resolver
         "adf.ly" |
         "atominik.com" |
         "fumacrom.com" |
         "intamema.com" |
         "j.gs" |
         "q.gs" => resolvers::adfly::unshort(&url, timeout),
-        "adfoc.us" => resolvers::adfocus::unshort(&url, timeout),
-        "nowlinks.net" => resolvers::nowlinks::unshort(&url, timeout),
-        "rlu.ru" => resolvers::rlu::unshort(&url, timeout),
-        "shorturl.at" => resolvers::shorturl::unshort(&url, timeout),
-        "soo.gd" => resolvers::meta_refresh::unshort(&url, timeout),
-        "tinyurl.com" => resolvers::tinyurl::unshort(&url, timeout),
+
+        // Redirect Resolvers
         "ity.im" |
-        "u.to" => resolvers::window::unshort(&url, timeout),
+        "nowlinks.net" |
+        "rlu.ru" |
+        "tinyurl.com" |
+        "u.to" => resolvers::redirect::unshort(&url, timeout),
+
+        // Meta Refresh Resolvers
+        "soo.gd" => resolvers::refresh::unshort(&url, timeout),
+
+        // Specific Resolvers
+        "adfoc.us" => resolvers::adfocus::unshort(&url, timeout),
+        "shorturl.at" => resolvers::shorturl::unshort(&url, timeout),
+
+        // Generic Resolvers
         _ => resolvers::generic::unshort(&url, timeout),
     }
 }

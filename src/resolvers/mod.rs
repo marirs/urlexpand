@@ -8,12 +8,9 @@ use reqwest::{
 pub(crate) mod adfly;
 pub(crate) mod adfocus;
 pub(crate) mod generic;
-pub(crate) mod window;
-pub(crate) mod meta_refresh;
-pub(crate) mod nowlinks;
-pub(crate) mod rlu;
+pub(crate) mod redirect;
+pub(crate) mod refresh;
 pub(crate) mod shorturl;
-pub(crate) mod tinyurl;
 
 static UA: &str = "curl/7.72.0";
 
@@ -77,13 +74,13 @@ pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
 }
 
 /// Extract text from regex pattern
-pub(crate) fn from_re_pattern(txt: &str, p: &str) -> Option<String> {
-    let pattern = match Regex::new(p) {
-        Ok(p) => p,
-        Err(_) => return None
-    };
-
-    pattern
-        .captures(txt)
-        .map(|c|c[c.len()-1].to_string())
+fn from_re(txt: &str, p: &str) -> Option<String> {
+    Regex::new(p)
+        .ok()
+        .and_then(|pattern| {
+            pattern.captures(txt).and_then(|c| {
+                c.iter().skip(1).flatten().next()
+            })
+        })
+        .map(|x| x.as_str().to_string())
 }
