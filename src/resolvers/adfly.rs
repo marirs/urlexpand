@@ -14,30 +14,34 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
 
     data.rotate_left(data.len() / 2);
 
-    let mut numbers: Vec<(usize, i32)> = Vec::new();
-    for (j, val) in data.iter().enumerate() {
-        if let Ok(val_parsed) = val.to_string().trim().parse() {
-            numbers.push((j, val_parsed));
-        }
-    }
-
-    for items in numbers.chunks(2) {
-        if let [x, y] = items {
-            let xor = x.1 ^ y.1;
-            if xor < 10 {
-                data[x.0] = xor.to_string().parse().unwrap();
+    data.iter()
+        .enumerate()
+        .filter_map(|(j, val)| {
+            val.to_string()
+                .trim()
+                .parse::<i32>()
+                .map(|val_parsed| (j, val_parsed))
+                .ok()
+        })
+        .collect::<Vec<_>>()
+        .chunks_exact(2)
+        .for_each(|items| {
+            if let [x, y] = items {
+                let xor = x.1 ^ y.1;
+                if xor < 10 {
+                    data[x.0] = xor.to_string().parse().unwrap();
+                }
             }
-        }
-    }
+        });
 
     let buf = base64::decode(data.drain(..).collect::<String>()).unwrap();
-    match from_utf8(&buf) {
-        Ok(v) => v[16..v.len() - 16]
+
+    from_utf8(&buf).ok().and_then(|v| {
+        v[16..v.len() - 16]
             .split("dest=")
             .nth(1)
-            .map(|url| percent_decode_str(url).decode_utf8_lossy().into()),
-        Err(_) => None, // Invalid UTF-8 sequence,
-    }
+            .map(|url| percent_decode_str(url).decode_utf8_lossy().into())
+    })
 }
 
 /// URL Expander for ADF.LY and its associated shortners
