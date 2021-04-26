@@ -5,12 +5,13 @@ use super::{
     from_re,
 };
 
-static RE_PATTERNS: [&str; 5] = [
+static RE_PATTERNS: [&str; 6] = [
     r#"Here is the URL which you want to visit:<br><br>\n<a href="([^">]*)"#, // rlu.ru
-    r#"window.open\("([^"\)]*)"#, // redirects using window.open
-    r#"window.location='(.*)';"#, // redirects using window.location
+    r#"window.open\(["']([^'"\)]*)"#, // redirects using window.open
+    r#"window.location[= '"]*([^'"]*)"#, // redirects using window.location
     r#"target='_blank'>([^<]*)"#, // nowlinks.net
     r#""redirecturl" href="(.*)">"#, // tinyurl.com
+    r#"src=['"]([^"']*)" scrolling"#, // vzturl.com
 ];
 
 /// Shortner services that employ different Redirect mechanisms

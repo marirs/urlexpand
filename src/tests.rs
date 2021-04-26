@@ -123,6 +123,14 @@ fn test_cutt_ly() {
 }
 
 #[test]
+fn test_cutt_us() {
+    let url = "https://cutt.us/keYiy";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com".to_string()));
+}
+
+#[test]
 fn test_db_tt() {
     let url = "https://db.tt/cchelp";
     let expanded_url = unshorten(url, None);
@@ -461,6 +469,14 @@ fn test_virg_in() {
     let expanded_url = unshorten(url, None);
     assert!(expanded_url.is_some());
     assert_eq!(expanded_url, Some("https://www.virginactive.co.za/quest".to_string()));
+}
+
+#[test]
+fn test_vzturl_com() {
+    let url = "https://vzturl.com/bqd20";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url.unwrap().starts_with("https://www.amazon.com/Sabrent-Thunderbolt-"));
 }
 
 #[test]

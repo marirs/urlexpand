@@ -1,6 +1,6 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 70] = [
+pub(crate) static SERVICES: [&str; 73] = [
     "adf.ly",
     "adfoc.us",
     "amzn.to",
@@ -14,6 +14,7 @@ pub(crate) static SERVICES: [&str; 70] = [
     "cli.re",
     "cli.fm",
     "cutt.ly",
+    "cutt.us",
     "db.tt",
     "fa.by",
     "fb.me",
@@ -38,6 +39,7 @@ pub(crate) static SERVICES: [&str; 70] = [
     "ow.ly",
     "q.gs",
     "qr.ae",
+    "qr.net",
     "rb.gy",
     "rebrand.ly",
     "rlu.ru",
@@ -67,6 +69,7 @@ pub(crate) static SERVICES: [&str; 70] = [
     "u.to",
     "v.gd",
     "virg.in",
+    "vzturl.com",
     "x.co",
     "y2u.be",
     "yourwish.es",

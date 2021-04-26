@@ -57,13 +57,18 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
         "q.gs" => resolvers::adfly::unshort(&url, timeout),
 
         // Redirect Resolvers
+        "gns.io" |
         "ity.im" |
+        "ldn.im" |
         "nowlinks.net" |
         "rlu.ru" |
         "tinyurl.com" |
-        "u.to" => resolvers::redirect::unshort(&url, timeout),
+        "tr.im" |
+        "u.to" |
+        "vzturl.com" => resolvers::redirect::unshort(&url, timeout),
 
         // Meta Refresh Resolvers
+        "cutt.us" |
         "soo.gd" => resolvers::refresh::unshort(&url, timeout),
 
         // Specific Resolvers

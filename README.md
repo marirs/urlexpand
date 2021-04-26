@@ -10,7 +10,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.1.0"
+urlexpand = "0.1.1"
 ```
 
 and then
@@ -46,6 +46,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `cli.re` - Capsulink
 - `cli.fm` - Capsulink  
 - `cutt.ly` - Cuttly
+- `cutt.us` - Cutt us  
 - `db.tt` - Dropbox  
 - `fa.by` - part of rebrand.ly
 - `fb.me` - Facebook  
@@ -70,6 +71,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `ow.ly` - part of Hootsuite  
 - `q.gs` - part of Adfly  
 - `qr.ae` - Quora  
+- `qr.net` - QR Code URL shortner & generator  
 - `rebrand.ly` - Rebrandly
 - `rb.gy` - RBGY Free URL Shortner  
 - `rlu.ru` - RLU.RU  
@@ -96,10 +98,11 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `tiny.one` - part of tinyurl.com
 = `tny.im` - TNY.IM  
 - `tny.sh` - Linksplit  
-- `tr.im` - trim (tr.im)
+- `tr.im` - trim (tr.im) by RedLotus
 - `u.to` - U TO  
 - `v.gd` - V GD  
 - `virg.in` - Virgin  
+- `vzturl.com` - Vzt URL  
 - `x.co` - GoDaddy URL Shortner (currently shutdown)  
 - `y2u.be` - YouTube URL Shortner by Firewrench inc.  
 - `yourwish.es` - Your Wishes  
