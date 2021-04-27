@@ -13,7 +13,7 @@ fn main() {
         "{}\nis_shortened? {}\nExpanded URL = {:?}",
         url,
         urlexpand::is_shortened(&url),
-        urlexpand::unshorten(&url, Some(Duration::from_secs(10)))
+        urlexpand::unshorten(&url, Some(Duration::from_secs(20)))
     );
     println!();
 }

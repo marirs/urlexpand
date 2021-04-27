@@ -121,6 +121,14 @@ fn test_cutt_ly() {
 }
 
 #[test]
+fn test_cutt_us() {
+    let url = "https://cutt.us/keYiy";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com".to_string()));
+}
+
+#[test]
 fn test_db_tt() {
     let url = "https://db.tt/cchelp";
     let expanded_url = unshorten(url, None);
@@ -128,6 +136,14 @@ fn test_db_tt() {
     assert!(expanded_url
         .unwrap()
         .starts_with("https://www.dropbox.com/"));
+}
+
+#[test]
+fn test_f_ls() {
+    let url = "https://f.ls/jdsku";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
 }
 
 #[test]
@@ -289,6 +305,14 @@ fn test_ow_ly() {
 }
 
 #[test]
+fn test_plu_sh() {
+    let url = "https://plu.sh/xnwb8";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
+}
+
+#[test]
 fn test_q_gs() {
     let url = "http://q.gs/FNOHk";
     let expanded_url = unshorten(url, None);
@@ -377,6 +401,16 @@ fn test_smc_sg() {
 }
 
 #[test]
+fn test_snip_ly() {
+    let url = "snip.ly/soyummy-cookbook";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://www.soyummystore.com"));
+}
+
+#[test]
 fn test_t_co() {
     let url = "https://t.co/bYeHhy9kAU";
     let expanded_url = unshorten(url, None);
@@ -454,6 +488,16 @@ fn test_tr_im() {
 }
 
 #[test]
+fn test_trib_al() {
+    let url = "https://trib.al/YKNecc2";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://mashable.com/article"));
+}
+
+#[test]
 fn test_u_to() {
     let url = "https://u.to/P05FGw";
     let expanded_url = unshorten(url, None);
@@ -480,6 +524,26 @@ fn test_virg_in() {
         expanded_url,
         Some("https://www.virginactive.co.za/quest".to_string())
     );
+}
+
+#[test]
+fn test_vzturl_com() {
+    let url = "https://vzturl.com/bqd20";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://www.amazon.com/Sabrent-Thunderbolt-"));
+}
+
+#[test]
+fn test_waa_ai() {
+    let url = "https://waa.ai/muZV";
+    let expanded_url = unshorten(url, None);
+    assert!(expanded_url.is_some());
+    assert!(expanded_url
+        .unwrap()
+        .starts_with("https://www.google.com/search?q=rust"));
 }
 
 #[test]

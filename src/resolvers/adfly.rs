@@ -46,18 +46,10 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
 
 /// URL Expander for ADF.LY and its associated shortners
 pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
-    let html = match from_url(url, timeout) {
-        Some(t) => t,
-        None => return None,
-    };
-
-    let ysmm = match html.split("ysmm = '").nth(1) {
-        Some(r) => match r.splitn(2, "';").next() {
-            Some(t) => t,
-            None => return None,
-        },
-        None => return None,
-    };
-
-    decode_ysmm(ysmm)
+    from_url(url, timeout).and_then(|html| {
+        html.split("ysmm = '")
+            .nth(1)
+            .and_then(|r| r.splitn(2, "';").next())
+            .and_then(|ysmm| decode_ysmm(ysmm))
+    })
 }
