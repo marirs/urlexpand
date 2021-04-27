@@ -10,7 +10,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.1.1"
+urlexpand = "0.1.2"
 ```
 
 and then
@@ -37,17 +37,21 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `adfoc.us` - AdFocus  
 - `amzn.to` - Amazon  
 - `atominik.com` - part of Adf.ly 
+- `ay.gy` -   part of Adf.ly
 - `b.link` - BLINK
 - `bit.ly` - Bitly Url Shortner
 - `bit.do` - Bitdo
 - `bn.gy` - BNGY  
+- `branch.io` - Branch.io  
 - `buff.ly` - Buffer URL Shortner
+- `ceesty.com` - part of sh.st  
 - `chollo.to` - Chollo Ecommerce
 - `cli.re` - Capsulink
 - `cli.fm` - Capsulink  
 - `cutt.ly` - Cuttly
 - `cutt.us` - Cutt us  
 - `db.tt` - Dropbox  
+- `f.ls` - Free Link Shortener
 - `fa.by` - part of rebrand.ly
 - `fb.me` - Facebook  
 - `flip.it` - Flipboard  
@@ -56,6 +60,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `goo.gl` - Google Service has now stopped their url shortening service 
 - `gns.io` - part of trim (tr.im)
 - `hmm.rs` - HMM.RS  
+- `ht.ly` - part of Hootsuite  
 - `hyperurl.co` - SmartUrl.It  
 - `ity.im` - ity.im (it'-ee-i-am)
 - `intamema.com` part of Adf.ly  
@@ -64,11 +69,13 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `j.mp` - part of Bitly  
 - `kutt.it` - Kutt
 - `ldn.im` - part of trim (tr.im)
-- `linklyhq.com` - Linkly HQ  
+- `linklyhq.com` - Linkly HQ
+- `microify.com` - part of Adf.ly
 - `mzl.la` - Mozilla Org  
 - `nmc.sg` - instra corporation pty
 - `nowlinks.net` - Now Links  
 - `ow.ly` - part of Hootsuite  
+- `plu.sh` - Plush  
 - `q.gs` - part of Adfly  
 - `qr.ae` - Quora  
 - `qr.net` - QR Code URL shortner & generator  
@@ -85,6 +92,8 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `shortcm.xyz` - ShortCm
 - `shorturl.at` - ShortURL At  
 - `smu.sg` - Singapore Management University  
+- `smq.tc` - part of bit.ly  
+- `snip.ly` - Sniply.io  
 - `snipr.com`
 - `snipurl.com`
 - `snurl.com`
@@ -94,15 +103,19 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `t2m.io` - T2M aka "Text to Marketing" (t2mio.com)
 - `tiny.cc` - TinyCC
 - `tiny.pl` - TinyPL  
+- `tinyium.com` - part of Adf.ly  
 - `tinyurl.com` - TinyURL
 - `tiny.one` - part of tinyurl.com
 = `tny.im` - TNY.IM  
 - `tny.sh` - Linksplit  
 - `tr.im` - trim (tr.im) by RedLotus
+- `trib.al` - Tribal links shortner  
 - `u.to` - U TO  
 - `v.gd` - V GD  
 - `virg.in` - Virgin  
 - `vzturl.com` - Vzt URL  
+- `waa.ai` - Akari Link Shortner  
+- `washex.am` - part of bit.ly  
 - `x.co` - GoDaddy URL Shortner (currently shutdown)  
 - `y2u.be` - YouTube URL Shortner by Firewrench inc.  
 - `yourwish.es` - Your Wishes  
