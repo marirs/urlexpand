@@ -1,5 +1,5 @@
 use std::time::Duration;
-use url::{Url, ParseError};
+use url::{ParseError, Url};
 
 mod resolvers;
 
@@ -37,74 +37,48 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     //! }
     //! ```
     // Check to make sure url is valid
-    let url = match validate(url) {
-        Some(u) => u,
-        None => return None
-    };
+    validate(url)
+        .and_then(|url| which_service(&url))
+        .and_then(|service| match service {
+            // Adfly Resolver
+            "adf.ly" | "atominik.com" | "fumacrom.com" | "intamema.com" | "j.gs" | "q.gs" => {
+                resolvers::adfly::unshort(&url, timeout)
+            }
 
-    let service = match which_service(&url) {
-        Some(service) => service,
-        None => return None,
-    };
+            // Redirect Resolvers
+            "gns.io" | "ity.im" | "ldn.im" | "nowlinks.net" | "rlu.ru" | "tinyurl.com"
+            | "tr.im" | "u.to" | "vzturl.com" => resolvers::redirect::unshort(&url, timeout),
 
-    match service {
-        // Adfly Resolver
-        "adf.ly" |
-        "atominik.com" |
-        "fumacrom.com" |
-        "intamema.com" |
-        "j.gs" |
-        "q.gs" => resolvers::adfly::unshort(&url, timeout),
+            // Meta Refresh Resolvers
+            "cutt.us" | "soo.gd" => resolvers::refresh::unshort(&url, timeout),
 
-        // Redirect Resolvers
-        "gns.io" |
-        "ity.im" |
-        "ldn.im" |
-        "nowlinks.net" |
-        "rlu.ru" |
-        "tinyurl.com" |
-        "tr.im" |
-        "u.to" |
-        "vzturl.com" => resolvers::redirect::unshort(&url, timeout),
+            // Specific Resolvers
+            "adfoc.us" => resolvers::adfocus::unshort(&url, timeout),
+            "shorturl.at" => resolvers::shorturl::unshort(&url, timeout),
 
-        // Meta Refresh Resolvers
-        "cutt.us" |
-        "soo.gd" => resolvers::refresh::unshort(&url, timeout),
-
-        // Specific Resolvers
-        "adfoc.us" => resolvers::adfocus::unshort(&url, timeout),
-        "shorturl.at" => resolvers::shorturl::unshort(&url, timeout),
-
-        // Generic Resolvers
-        _ => resolvers::generic::unshort(&url, timeout),
-    }
+            // Generic Resolvers
+            _ => resolvers::generic::unshort(&url, timeout),
+        })
 }
 
 /// Validate & return a clean URL
 fn validate(u: &str) -> Option<String> {
-    let parts = match  Url::parse(u) {
+    let parts = match Url::parse(u) {
         Ok(p) => p,
-        Err(e) => {
-            match e {
-                ParseError::RelativeUrlWithoutBase => {
-                    let new_url = format!("https://{}", u);
-                    match Url::parse(&new_url) {
-                        Ok(p) => p,
-                        Err(_) => return None
-                    }
+        Err(e) => match e {
+            ParseError::RelativeUrlWithoutBase => {
+                let new_url = format!("https://{}", u);
+                match Url::parse(&new_url) {
+                    Ok(p) => p,
+                    Err(_) => return None,
                 }
-                _ => return None
             }
-        }
+            _ => return None,
+        },
     };
 
-    let domain = match parts.domain() {
-        Some(d) => d,
-        None => return None
-    };
-    if is_shortened(domain) {
-        Some(parts.to_string())
-    } else {
-        None
-    }
+    parts
+        .domain()
+        .filter(|domain| is_shortened(domain))
+        .map(|_| parts.as_str().into())
 }

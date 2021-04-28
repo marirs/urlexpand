@@ -1,8 +1,4 @@
-use std::{
-    env,
-    time::Duration,
-    process::exit,
-};
+use std::{env, process::exit, time::Duration};
 use urlexpand;
 
 fn main() {
@@ -13,7 +9,8 @@ fn main() {
     }
     let url = args[1].to_owned();
 
-    println!("{}\nis_shortened? {}\nExpanded URL = {:?}",
+    println!(
+        "{}\nis_shortened? {}\nExpanded URL = {:?}",
         url,
         urlexpand::is_shortened(&url),
         urlexpand::unshorten(&url, Some(Duration::from_secs(20)))

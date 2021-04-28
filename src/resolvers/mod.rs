@@ -17,18 +17,11 @@ static UA: &str = "curl/7.72.0";
 /// get the reqwest ClientBuilder
 pub(crate) fn get_client_builder(timeout: Option<Duration>) -> ClientBuilder {
     match timeout {
-        Some(x) => {
-            Client::builder()
-                .timeout(x)
-                .user_agent(UA)
-                .danger_accept_invalid_certs(true)
-        }
-        None => {
-            Client::builder()
-                .user_agent(UA)
-                .danger_accept_invalid_certs(true)
-        }
+        Some(x) => Client::builder().timeout(x),
+        None => Client::builder(),
     }
+    .user_agent(UA)
+    .danger_accept_invalid_certs(true)
 }
 
 /// Reqwest Custom Redirect Policy
@@ -45,32 +38,22 @@ pub(crate) fn custom_redirect_policy() -> Policy {
 
 /// Get Page Content if status==200
 pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
-    let client = match get_client_builder(timeout).build() {
-        Ok(c) => c,
-        Err(_) => return None,
-    };
-
-    let response = match client
-        .get(url)
-        .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-        .header("Accept-Language", "en-US,en;q=0.5")
-        .header("Cache-Control", "no-cache")
-        .send()
-    {
-        Ok(r) => r,
-        Err(_) => return None
-    };
-
-    let status = response.status();
-    if status == 200 {
-        let text = match response.text() {
-            Ok(t) => t,
-            _ => return None,
-        };
-
-        return Some(text)
-    }
-    None
+    get_client_builder(timeout)
+        .build()
+        .and_then(|client| {
+            client
+                .get(url)
+                .header(
+                    "Accept",
+                    "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                )
+                .header("Accept-Language", "en-US,en;q=0.5")
+                .header("Cache-Control", "no-cache")
+                .send()
+        })
+        .ok()
+        .filter(|response| response.status() == 200)
+        .and_then(|response| response.text().ok())
 }
 
 /// Extract text from regex pattern
@@ -78,9 +61,9 @@ fn from_re(txt: &str, p: &str) -> Option<String> {
     Regex::new(p)
         .ok()
         .and_then(|pattern| {
-            pattern.captures(txt).and_then(|c| {
-                c.iter().skip(1).flatten().next()
-            })
+            pattern
+                .captures(txt)
+                .and_then(|c| c.iter().skip(1).flatten().next())
         })
-        .map(|x| x.as_str().to_string())
+        .map(|x| x.as_str().into())
 }
