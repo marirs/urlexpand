@@ -37,28 +37,30 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     //! }
     //! ```
     // Check to make sure url is valid
-    validate(url)
-        .and_then(|url| which_service(&url))
-        .and_then(|service| match service {
+    validate(url).and_then(|validated_url| {
+        which_service(&validated_url).and_then(|service| match service {
             // Adfly Resolver
             "adf.ly" | "atominik.com" | "fumacrom.com" | "intamema.com" | "j.gs" | "q.gs" => {
-                resolvers::adfly::unshort(&url, timeout)
+                resolvers::adfly::unshort(&validated_url, timeout)
             }
 
             // Redirect Resolvers
             "gns.io" | "ity.im" | "ldn.im" | "nowlinks.net" | "rlu.ru" | "tinyurl.com"
-            | "tr.im" | "u.to" | "vzturl.com" => resolvers::redirect::unshort(&url, timeout),
+            | "tr.im" | "u.to" | "vzturl.com" => {
+                resolvers::redirect::unshort(&validated_url, timeout)
+            }
 
             // Meta Refresh Resolvers
-            "cutt.us" | "soo.gd" => resolvers::refresh::unshort(&url, timeout),
+            "cutt.us" | "soo.gd" => resolvers::refresh::unshort(&validated_url, timeout),
 
             // Specific Resolvers
-            "adfoc.us" => resolvers::adfocus::unshort(&url, timeout),
-            "shorturl.at" => resolvers::shorturl::unshort(&url, timeout),
+            "adfoc.us" => resolvers::adfocus::unshort(&validated_url, timeout),
+            "shorturl.at" => resolvers::shorturl::unshort(&validated_url, timeout),
 
             // Generic Resolvers
-            _ => resolvers::generic::unshort(&url, timeout),
+            _ => resolvers::generic::unshort(&validated_url, timeout),
         })
+    })
 }
 
 /// Validate & return a clean URL
@@ -79,6 +81,5 @@ fn validate(u: &str) -> Option<String> {
 
     parts
         .domain()
-        .filter(|domain| is_shortened(domain))
-        .map(|_| parts.as_str().into())
+        .and_then(|domain| is_shortened(domain).then(|| parts.as_str().into()))
 }
