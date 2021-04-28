@@ -3,6 +3,7 @@ use regex::Regex;
 use reqwest::{
     blocking::{Client, ClientBuilder},
     redirect::Policy,
+    StatusCode,
 };
 
 pub(crate) mod adfly;
@@ -52,7 +53,7 @@ pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
                 .send()
         })
         .ok()
-        .filter(|response| response.status() == 200)
+        .filter(|response| response.status() == StatusCode::OK)
         .and_then(|response| response.text().ok())
 }
 
