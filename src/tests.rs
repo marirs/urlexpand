@@ -139,14 +139,6 @@ fn test_db_tt() {
 }
 
 #[test]
-fn test_f_ls() {
-    let url = "https://f.ls/jdsku";
-    let expanded_url = unshorten(url, None);
-    assert!(expanded_url.is_some());
-    assert_eq!(expanded_url, Some("https://www.google.com/".to_string()));
-}
-
-#[test]
 fn test_fb_me() {
     let url = "https://fb.me/mashable";
     let expanded_url = unshorten(url, None);
@@ -154,17 +146,6 @@ fn test_fb_me() {
     assert_eq!(
         expanded_url,
         Some("https://www.facebook.com/mashable".to_string())
-    );
-}
-
-#[test]
-fn test_flip_it() {
-    let url = "http://flip.it/3jbsWn";
-    let expanded_url = unshorten(url, None);
-    assert!(expanded_url.is_some());
-    assert_eq!(
-        expanded_url,
-        Some("https://www.thefuturist.co/why-is-ethereum-the-future-of-finance/".to_string())
     );
 }
 

@@ -10,7 +10,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 ### Example Usage
 
 ```toml
-urlexpand = "0.1.2"
+urlexpand = "0.1.3"
 ```
 
 and then
@@ -106,7 +106,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `tinyium.com` - part of Adf.ly  
 - `tinyurl.com` - TinyURL
 - `tiny.one` - part of tinyurl.com
-= `tny.im` - TNY.IM  
+- `tny.im` - TNY.IM  
 - `tny.sh` - Linksplit  
 - `tr.im` - trim (tr.im) by RedLotus
 - `trib.al` - Tribal links shortner  

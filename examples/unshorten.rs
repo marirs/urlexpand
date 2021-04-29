@@ -1,4 +1,4 @@
-use std::{env, process::exit, time::Duration};
+use std::{env, process::exit};
 use urlexpand;
 
 fn main() {
@@ -13,7 +13,7 @@ fn main() {
         "{}\nis_shortened? {}\nExpanded URL = {:?}",
         url,
         urlexpand::is_shortened(&url),
-        urlexpand::unshorten(&url, Some(Duration::from_secs(20)))
+        urlexpand::unshorten(&url, None)
     );
     println!();
 }
