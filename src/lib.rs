@@ -1,6 +1,7 @@
 use std::time::Duration;
 use url::{ParseError, Url};
 
+mod error;
 mod resolvers;
 
 mod services;
@@ -8,6 +9,11 @@ use services::{which_service, SERVICES};
 
 #[cfg(test)]
 mod tests;
+
+pub type Error = error::Error;
+pub type Result<T> = std::result::Result<T, Error>;
+
+use futures::future::{ready, TryFutureExt};
 
 pub fn is_shortened(url: &str) -> bool {
     //! Check to see if a given url is a shortened url
@@ -23,7 +29,7 @@ pub fn is_shortened(url: &str) -> bool {
     SERVICES.iter().any(|x| url.contains(x))
 }
 
-pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
+pub async fn unshorten(url: &str, timeout: Option<Duration>) -> Result<String> {
     //! UnShorten a shortened URL
     //! ## Example
     //! ```rust
@@ -37,30 +43,34 @@ pub fn unshorten(url: &str, timeout: Option<Duration>) -> Option<String> {
     //! }
     //! ```
     // Check to make sure url is valid
-    validate(url).and_then(|validated_url| {
-        which_service(&validated_url).and_then(|service| match service {
-            // Adfly Resolver
-            "adf.ly" | "atominik.com" | "fumacrom.com" | "intamema.com" | "j.gs" | "q.gs" => {
-                resolvers::adfly::unshort(&validated_url, timeout)
+    ready(validate(url).ok_or(Error::NoString))
+        .and_then(|validated_url| async move {
+            let service = which_service(&validated_url).ok_or(Error::NoString)?;
+
+            match service {
+                // Adfly Resolver
+                "adf.ly" | "atominik.com" | "fumacrom.com" | "intamema.com" | "j.gs" | "q.gs" => {
+                    resolvers::adfly::unshort(&validated_url, timeout).await
+                }
+
+                // Redirect Resolvers
+                "gns.io" | "ity.im" | "ldn.im" | "nowlinks.net" | "rlu.ru" | "tinyurl.com"
+                | "tr.im" | "u.to" | "vzturl.com" => {
+                    resolvers::redirect::unshort(&validated_url, timeout).await
+                }
+
+                // Meta Refresh Resolvers
+                "cutt.us" | "soo.gd" => resolvers::refresh::unshort(&validated_url, timeout).await,
+
+                // Specific Resolvers
+                "adfoc.us" => resolvers::adfocus::unshort(&validated_url, timeout).await,
+                "shorturl.at" => resolvers::shorturl::unshort(&validated_url, timeout).await,
+
+                // Generic Resolvers
+                _ => resolvers::generic::unshort(&validated_url, timeout).await,
             }
-
-            // Redirect Resolvers
-            "gns.io" | "ity.im" | "ldn.im" | "nowlinks.net" | "rlu.ru" | "tinyurl.com"
-            | "tr.im" | "u.to" | "vzturl.com" => {
-                resolvers::redirect::unshort(&validated_url, timeout)
-            }
-
-            // Meta Refresh Resolvers
-            "cutt.us" | "soo.gd" => resolvers::refresh::unshort(&validated_url, timeout),
-
-            // Specific Resolvers
-            "adfoc.us" => resolvers::adfocus::unshort(&validated_url, timeout),
-            "shorturl.at" => resolvers::shorturl::unshort(&validated_url, timeout),
-
-            // Generic Resolvers
-            _ => resolvers::generic::unshort(&validated_url, timeout),
         })
-    })
+        .await
 }
 
 /// Validate & return a clean URL

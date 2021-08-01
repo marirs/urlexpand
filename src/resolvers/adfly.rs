@@ -3,6 +3,10 @@ use super::from_url;
 use percent_encoding::percent_decode_str;
 use std::{collections::VecDeque, str::from_utf8, time::Duration};
 
+use futures::future::{ready, TryFutureExt};
+
+use crate::{Error, Result};
+
 /// Decode the YSMM variable value to fetch the dest url
 fn decode_ysmm(ysmm: &str) -> Option<String> {
     let mut data = VecDeque::<char>::new();
@@ -45,11 +49,16 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
 }
 
 /// URL Expander for ADF.LY and its associated shortners
-pub(crate) fn unshort(url: &str, timeout: Option<Duration>) -> Option<String> {
-    from_url(url, timeout).and_then(|html| {
-        html.split("ysmm = '")
-            .nth(1)
-            .and_then(|r| r.splitn(2, "';").next())
-            .and_then(|ysmm| decode_ysmm(ysmm))
-    })
+pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<String> {
+    from_url(url, timeout)
+        .and_then(|html| {
+            ready(
+                html.split("ysmm = '")
+                    .nth(1)
+                    .and_then(|r| r.splitn(2, "';").next())
+                    .and_then(|ysmm| decode_ysmm(ysmm))
+                    .ok_or(Error::NoString),
+            )
+        })
+        .await
 }

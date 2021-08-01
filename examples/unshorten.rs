@@ -1,7 +1,8 @@
 use std::{env, process::exit};
 use urlexpand;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
         println!("pass a url to expand: (eg: ./unhorten https://bit.ly/3alqLKi)");
@@ -13,7 +14,7 @@ fn main() {
         "{}\nis_shortened? {}\nExpanded URL = {:?}",
         url,
         urlexpand::is_shortened(&url),
-        urlexpand::unshorten(&url, None)
+        urlexpand::unshorten(&url, None).await.unwrap()
     );
     println!();
 }
