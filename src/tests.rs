@@ -45,7 +45,11 @@ macro_rules! test_shorten_link {
 
 test_shorten_link!(test_adf_ly, "https://adf.ly/HmtTG", "http://google.com");
 test_shorten_link!(test_adfoc_us, "http://adfoc.us/x1", "http://google.com");
-test_shorten_link!(test_amzn_to, "https://amzn.to/2SdesXo", "https://www.amazon.com/gp/offer-listing/");
+test_shorten_link!(
+    test_amzn_to,
+    "https://amzn.to/2SdesXo",
+    "https://www.amazon.com/gp/offer-listing/"
+);
 
 #[tokio::test]
 async fn test_atominik_com() {
