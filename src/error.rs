@@ -1,5 +1,7 @@
 #[derive(Debug, PartialEq, thiserror::Error)]
 pub enum Error {
+    #[error("tokio runtime error")]
+    StdIo(String),
     #[error("reqwest header error")]
     ReqwestHeader(String),
     #[error("reqwest error")]
@@ -19,5 +21,11 @@ impl From<reqwest::header::ToStrError> for Error {
 impl From<reqwest::Error> for Error {
     fn from(a: reqwest::Error) -> Self {
         Self::Reqwest(a.to_string())
+    }
+}
+
+impl From<std::io::Error> for Error {
+    fn from(a: std::io::Error) -> Self {
+        Self::StdIo(a.to_string())
     }
 }

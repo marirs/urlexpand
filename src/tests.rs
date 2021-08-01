@@ -1,4 +1,4 @@
-use super::{is_shortened, unshorten, validate};
+use super::{is_shortened, unshorten, unshorten_blocking, validate};
 
 #[test]
 fn test_validate() {
@@ -22,6 +22,14 @@ fn test_is_shortened() {
 async fn test_adf_ly() {
     let url = "https://adf.ly/HmtTG";
     let expanded_url = unshorten(url, None).await;
+    assert!(expanded_url.is_ok());
+    assert_eq!(expanded_url, Ok("http://google.com".to_string()));
+}
+
+#[test]
+fn test_adf_ly_blocking() {
+    let url = "https://adf.ly/HmtTG";
+    let expanded_url = unshorten_blocking(url, None);
     assert!(expanded_url.is_ok());
     assert_eq!(expanded_url, Ok("http://google.com".to_string()));
 }

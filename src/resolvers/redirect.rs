@@ -1,5 +1,3 @@
-use reqwest::Response;
-
 // Shortner services that Redirects
 use super::{from_re, get_client_builder};
 use std::time::Duration;

@@ -29,6 +29,11 @@ pub fn is_shortened(url: &str) -> bool {
     SERVICES.iter().any(|x| url.contains(x))
 }
 
+pub fn unshorten_blocking(url: &str, timeout: Option<Duration>) -> Result<String> {
+    let rt = tokio::runtime::Runtime::new()?;
+    rt.block_on(unshorten(url, timeout))
+}
+
 pub async fn unshorten(url: &str, timeout: Option<Duration>) -> Result<String> {
     //! UnShorten a shortened URL
     //! ## Example
