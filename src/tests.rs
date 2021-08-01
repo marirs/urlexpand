@@ -1,5 +1,7 @@
 use super::{is_shortened, unshorten, unshorten_blocking, validate};
 
+use paste::paste;
+
 #[test]
 fn test_validate() {
     assert!(validate("bit.ly").is_some());
@@ -18,39 +20,32 @@ fn test_is_shortened() {
     assert!(!is_shortened(url));
 }
 
-#[tokio::test]
-async fn test_adf_ly() {
-    let url = "https://adf.ly/HmtTG";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://google.com".to_string()));
+macro_rules! test_shorten_link {
+    ($t_name:ident, $s_url:expr,$e_url:expr) => {
+        #[tokio::test]
+        async fn $t_name() {
+            let url = $s_url;
+            let expanded_url = unshorten(url, None).await;
+            assert!(expanded_url.is_ok());
+            assert_eq!(expanded_url, Ok($e_url.to_string()));
+        }
+
+        // until std::concat_idents stablizes
+        paste! {
+            #[test]
+            fn [<$t_name _blocking>]() {
+                let url = $s_url;
+                let expanded_url = unshorten_blocking(url, None);
+                assert!(expanded_url.is_ok());
+                assert_eq!(expanded_url, Ok($e_url.to_string()));
+            }
+        }
+    };
 }
 
-#[test]
-fn test_adf_ly_blocking() {
-    let url = "https://adf.ly/HmtTG";
-    let expanded_url = unshorten_blocking(url, None);
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://google.com".to_string()));
-}
-
-#[tokio::test]
-async fn test_adfoc_us() {
-    let url = "http://adfoc.us/x1";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://google.com/".to_string()));
-}
-
-#[tokio::test]
-async fn test_amzn_to() {
-    let url = "https://amzn.to/2SdesXo";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.amazon.com/gp/offer-listing/"));
-}
+test_shorten_link!(test_adf_ly, "https://adf.ly/HmtTG", "http://google.com");
+test_shorten_link!(test_adfoc_us, "http://adfoc.us/x1", "http://google.com");
+test_shorten_link!(test_amzn_to, "https://amzn.to/2SdesXo", "https://www.amazon.com/gp/offer-listing/");
 
 #[tokio::test]
 async fn test_atominik_com() {
