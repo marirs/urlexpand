@@ -1,10 +1,6 @@
 use core::time::Duration;
 use regex::Regex;
-use reqwest::{
-    blocking::{Client, ClientBuilder},
-    redirect::Policy,
-    StatusCode,
-};
+use reqwest::{redirect::Policy, Client, ClientBuilder, StatusCode};
 
 pub(crate) mod adfly;
 pub(crate) mod adfocus;
@@ -12,6 +8,10 @@ pub(crate) mod generic;
 pub(crate) mod redirect;
 pub(crate) mod refresh;
 pub(crate) mod shorturl;
+
+use futures::future::{ready, TryFutureExt};
+
+use crate::Result;
 
 static UA: &str = "curl/7.72.0";
 
@@ -38,10 +38,9 @@ pub(crate) fn custom_redirect_policy() -> Policy {
 }
 
 /// Get Page Content if status==200
-pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
-    get_client_builder(timeout)
-        .build()
-        .and_then(|client| {
+pub(crate) async fn from_url(url: &str, timeout: Option<Duration>) -> Result<String> {
+    ready(get_client_builder(timeout).build())
+        .and_then(|client| async move {
             client
                 .get(url)
                 .header(
@@ -51,10 +50,17 @@ pub(crate) fn from_url(url: &str, timeout: Option<Duration>) -> Option<String> {
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("Cache-Control", "no-cache")
                 .send()
+                .await
         })
-        .ok()
-        .filter(|response| response.status() == StatusCode::OK)
-        .and_then(|response| response.text().ok())
+        .err_into()
+        .and_then(|response| async move {
+            if response.status() == StatusCode::OK {
+                Err(crate::error::Error::NoString)
+            } else {
+                Ok(response.text().await?)
+            }
+        })
+        .await
 }
 
 /// Extract text from regex pattern
