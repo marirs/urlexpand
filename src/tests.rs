@@ -24,20 +24,32 @@ macro_rules! test_shorten_link {
     ($t_name:ident, $s_url:expr, $op:ident, $e_url:expr) => {
         #[tokio::test]
         async fn $t_name() {
-            let url = $s_url;
-            let expanded_url = unshorten(url, None).await;
-            assert!(expanded_url.is_ok());
-            assert_eq!(expanded_url, Ok($e_url.to_string()));
+            let expanded_url = unshorten($s_url, None).await;
+            assert_eq!(
+                expanded_url.as_ref().map(|x| x.$op($e_url)),
+                Ok(true),
+                "{}: {:?} {} {}",
+                $s_url,
+                expanded_url,
+                stringify!($op),
+                $e_url
+            );
         }
 
         // until std::concat_idents stablizes
         paste! {
             #[test]
             fn [<$t_name _blocking>]() {
-                let url = $s_url;
-                let expanded_url = unshorten_blocking(url, None);
-                assert!(expanded_url.is_ok());
-                assert!(expanded_url.unwrap().$op($e_url));
+                let expanded_url = unshorten_blocking($s_url, None);
+                assert_eq!(
+                    expanded_url.as_ref().map(|x| x.$op($e_url)),
+                    Ok(true),
+                    "{}: {:?} {} {}",
+                    $s_url,
+                    expanded_url,
+                    stringify!($op),
+                    $e_url
+                );
             }
         }
     };
