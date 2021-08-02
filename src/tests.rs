@@ -21,7 +21,7 @@ fn test_is_shortened() {
 }
 
 macro_rules! test_shorten_link {
-    ($t_name:ident, $s_url:expr,$e_url:expr) => {
+    ($t_name:ident, $s_url:expr, $op:ident, $e_url:expr) => {
         #[tokio::test]
         async fn $t_name() {
             let url = $s_url;
@@ -37,514 +37,415 @@ macro_rules! test_shorten_link {
                 let url = $s_url;
                 let expanded_url = unshorten_blocking(url, None);
                 assert!(expanded_url.is_ok());
-                assert_eq!(expanded_url, Ok($e_url.to_string()));
+                assert!(expanded_url.unwrap().$op($e_url));
             }
         }
     };
 }
 
-test_shorten_link!(test_adf_ly, "https://adf.ly/HmtTG", "http://google.com");
-test_shorten_link!(test_adfoc_us, "http://adfoc.us/x1", "http://google.com");
+test_shorten_link!(test_adf_ly, "https://adf.ly/HmtTG", eq, "http://google.com");
+
+test_shorten_link!(test_adfoc_us, "http://adfoc.us/x1", eq, "http://google.com");
+
 test_shorten_link!(
     test_amzn_to,
     "https://amzn.to/2SdesXo",
+    eq,
     "https://www.amazon.com/gp/offer-listing/"
 );
 
-#[tokio::test]
-async fn test_atominik_com() {
-    let url = "https://atominik.com/2YTd";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().contains("weebly.com"));
-}
+test_shorten_link!(
+    test_atominik_com,
+    "https://atominik.com/2YTd",
+    contains,
+    "weebly.com"
+);
 
-#[tokio::test]
-async fn test_bit_ly() {
-    let url = "https://bit.ly/3alqLKi";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_bit_ly,
+    "https://bit.ly/3alqLKi",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_bit_do() {
-    let url = "http://bit.do/fQy4h";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_bit_do,
+    "http://bit.do/fQy4h",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_b_link() {
-    let url = "https://b.link/cx2x2l";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_b_link,
+    "https://b.link/cx2x2l",
+    eq,
+    "http://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_bn_gy() {
-    let url = "https://bn.gy/x7xUl";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://google.com/".to_string()));
-}
+test_shorten_link!(test_bn_gy, "https://bn.gy/x7xUl", eq, "https://google.com/");
 
-#[tokio::test]
-async fn test_buff_ly() {
-    let url = "https://buff.ly/1GYcFvQ";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://blog.bufferapp.com/url-shorteners?"));
-}
+test_shorten_link!(
+    test_buff_ly,
+    "https://buff.ly/1GYcFvQ",
+    starts_with,
+    "https://blog.bufferapp.com/url-shorteners?"
+);
 
-#[tokio::test]
-async fn test_cli_re() {
-    let url = "https://cli.re/wxbz38";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_cli_re,
+    "https://cli.re/wxbz38",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_chollo_to() {
-    let url = "https://chollo.to/s1q4u";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.chollometro.com/ofertas/xiaomi-mi-band-6"));
-}
+test_shorten_link!(
+    test_chollo_to,
+    "https://chollo.to/s1q4u",
+    starts_with,
+    "https://www.chollometro.com/ofertas/xiaomi-mi-band-6"
+);
 
-#[tokio::test]
-async fn test_cutt_ly() {
-    let url = "https://cutt.ly/tvDqE79";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_cutt_ly,
+    "https://cutt.ly/tvDqE79",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_cutt_us() {
-    let url = "https://cutt.us/keYiy";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com".to_string()));
-}
+test_shorten_link!(
+    test_cutt_us,
+    "https://cutt.us/keYiy",
+    eq,
+    "https://www.google.com"
+);
 
-#[tokio::test]
-async fn test_db_tt() {
-    let url = "https://db.tt/cchelp";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.dropbox.com/"));
-}
+test_shorten_link!(
+    test_db_tt,
+    "https://db.tt/cchelp",
+    starts_with,
+    "https://www.dropbox.com/"
+);
 
-#[tokio::test]
-async fn test_fb_me() {
-    let url = "https://fb.me/mashable";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(
-        expanded_url,
-        Ok("https://www.facebook.com/mashable".to_string())
-    );
-}
+test_shorten_link!(
+    test_fb_me,
+    "https://fb.me/mashable",
+    eq,
+    "https://www.facebook.com/mashable"
+);
 
-#[tokio::test]
-async fn test_fumacrom_com() {
-    let url = "https://fumacrom.com/1KP3";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com".to_string()));
-}
+test_shorten_link!(
+    test_fumacrom_com,
+    "https://fumacrom.com/1KP3",
+    eq,
+    "https://www.google.com"
+);
 
-#[tokio::test]
-async fn test_j_gs() {
-    let url = "http://j.gs/AXr9";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://microsoft.com".to_string()));
-}
+test_shorten_link!(test_j_gs, "http://j.gs/AXr9", eq, "https://microsoft.com");
 
-#[tokio::test]
-async fn test_git_io() {
-    let url = "https://git.io/JOiM6";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(
-        expanded_url,
-        Ok("https://www.github.com/marirs/urlexpand".to_string())
-    );
-}
+test_shorten_link!(
+    test_git_io,
+    "https://git.io/JOiM6",
+    eq,
+    "https://www.github.com/marirs/urlexpand"
+);
 
-#[tokio::test]
-async fn test_goo_gl() {
-    let url = "https://goo.gl/cvSjeY";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("http://m.axisbank.com/"));
-}
+test_shorten_link!(
+    test_goo_gl,
+    "https://goo.gl/cvSjeY",
+    starts_with,
+    "http://m.axisbank.com/"
+);
 
-#[tokio::test]
-async fn test_gns_io() {
-    let url = "https://gns.io/1RQl2";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
-}
+test_shorten_link!(
+    test_gns_io,
+    "https://gns.io/1RQl2",
+    starts_with,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_hmm_rs() {
-    let url = "http://hmm.rs/Hangfire.PostgreSql";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://github.com/"));
-}
+test_shorten_link!(
+    test_hmm_rs,
+    "http://hmm.rs/Hangfire.PostgreSql",
+    starts_with,
+    "https://github.com/"
+);
 
-#[tokio::test]
-async fn test_hyperurl_co() {
-    let url = "https://hyperurl.co/qicb73";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_hyperurl_co,
+    "https://hyperurl.co/qicb73",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_intamema_com() {
-    let url = "http://intamema.com/HjU";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("http://www.google.com"));
-}
+test_shorten_link!(
+    test_intamema_com,
+    "http://intamema.com/HjU",
+    starts_with,
+    "http://www.google.com"
+);
 
-#[tokio::test]
-async fn test_is_gd() {
-    let url = "https://is.gd/EuvYes";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
-}
+test_shorten_link!(
+    test_is_gd,
+    "https://is.gd/EuvYes",
+    starts_with,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_ity_im() {
-    let url = "http://ity.im/U8re4";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.google.com/search?q=rust&"));
-}
+test_shorten_link!(
+    test_ity_im,
+    "http://ity.im/U8re4",
+    starts_with,
+    "https://www.google.com/search?q=rust&"
+);
 
-#[tokio::test]
-async fn test_iz4_short_gy() {
-    let url = "https://iz4.short.gy/mr7KcJ";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com"));
-}
+test_shorten_link!(
+    test_iz4_short_gy,
+    "https://iz4.short.gy/mr7KcJ",
+    starts_with,
+    "https://www.google.com"
+);
 
-#[tokio::test]
-async fn test_kutt_it() {
-    let url = "https://kutt.it/jO2XmP";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_kutt_it,
+    "https://kutt.it/jO2XmP",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_ldn_im() {
-    let url = "http://ldn.im/1pNey";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
-}
+test_shorten_link!(
+    test_ldn_im,
+    "http://ldn.im/1pNey",
+    starts_with,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_linklyhq_com() {
-    let url = "https://l.linklyhq.com/l/QebZ";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
-}
+test_shorten_link!(
+    test_linklyhq_com,
+    "https://l.linklyhq.com/l/QebZ",
+    starts_with,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_mlz_la() {
-    let url = "https://mzl.la/3eqJ565";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://support.mozilla.org/".to_string()));
-}
+test_shorten_link!(
+    test_mlz_la,
+    "https://mzl.la/3eqJ565",
+    eq,
+    "http://support.mozilla.org/"
+);
 
-#[tokio::test]
-async fn test_ow_ly() {
-    let url = "http://ow.ly/j9qh7";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://t.co/cAcQV4QTOS".to_string()));
-}
+test_shorten_link!(
+    test_ow_ly,
+    "http://ow.ly/j9qh7",
+    eq,
+    "http://t.co/cAcQV4QTOS"
+);
 
-#[tokio::test]
-async fn test_plu_sh() {
-    let url = "https://plu.sh/xnwb8";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_plu_sh,
+    "https://plu.sh/xnwb8",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_q_gs() {
-    let url = "http://q.gs/async fnOHk";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com".to_string()));
-}
+test_shorten_link!(
+    test_q_gs,
+    "http://q.gs/async fnOHk",
+    eq,
+    "https://www.google.com"
+);
 
-#[tokio::test]
-async fn test_qr_ae() {
-    let url = "http://qr.ae/7FQS9";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("http://www.quora.com"));
-}
+test_shorten_link!(
+    test_qr_ae,
+    "http://qr.ae/7FQS9",
+    starts_with,
+    "http://www.quora.com"
+);
 
-#[tokio::test]
-async fn test_rb_gy() {
-    let url = "https://rb.gy/ciq6si";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://google.com/".to_string()));
-}
+test_shorten_link!(
+    test_rb_gy,
+    "https://rb.gy/ciq6si",
+    eq,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_rebrand_ly() {
-    let url = "https://rebrand.ly/dp8cuo0";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_rebrand_ly,
+    "https://rebrand.ly/dp8cuo0",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_rlu_ru() {
-    let url = "https://rlu.ru/1B5";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com".to_string()));
-}
+test_shorten_link!(
+    test_rlu_ru,
+    "https://rlu.ru/1B5",
+    eq,
+    "https://www.google.com"
+);
 
-#[tokio::test]
-async fn test_rotf_lol() {
-    let url = "https://rotf.lol/4scu3nzz";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://google.com/".to_string()));
-}
+test_shorten_link!(
+    test_rotf_lol,
+    "https://rotf.lol/4scu3nzz",
+    eq,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_s_coop() {
-    let url = "https://s.coop/7oxn";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://www.google.com/"));
-}
+test_shorten_link!(
+    test_s_coop,
+    "https://s.coop/7oxn",
+    starts_with,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_s_id() {
-    let url = "https://s.id/A87Cn";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_s_id,
+    "https://s.id/A87Cn",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_shorturl_at() {
-    let url = "https://shorturl.at/kmrEO";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com".to_string()));
-}
+test_shorten_link!(
+    test_shorturl_at,
+    "https://shorturl.at/kmrEO",
+    eq,
+    "https://www.google.com"
+);
 
-#[tokio::test]
-async fn test_split_to() {
-    let url = "https://split.to/V1ZhFut";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://google.com"));
-}
+test_shorten_link!(
+    test_split_to,
+    "https://split.to/V1ZhFut",
+    starts_with,
+    "https://google.com"
+);
 
-#[tokio::test]
-async fn test_smc_sg() {
-    let url = "https://smu.sg/4l4";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
-}
+test_shorten_link!(
+    test_smc_sg,
+    "https://smu.sg/4l4",
+    starts_with,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_snip_ly() {
-    let url = "snip.ly/soyummy-cookbook";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.soyummystore.com"));
-}
+test_shorten_link!(
+    test_snip_ly,
+    "snip.ly/soyummy-cookbook",
+    starts_with,
+    "https://www.soyummystore.com"
+);
 
-#[tokio::test]
-async fn test_t_co() {
-    let url = "https://t.co/bYeHhy9kAU";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(
-        expanded_url,
-        Ok("https://www.youtube.com/watch?v=x6QZn9xiuOE".to_string())
-    );
-}
+test_shorten_link!(
+    test_t_co,
+    "https://t.co/bYeHhy9kAU",
+    eq,
+    "https://www.youtube.com/watch?v=x6QZn9xiuOE"
+);
 
-#[tokio::test]
-async fn test_t_ly() {
-    let url = "https://t.ly/2ESW";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_t_ly,
+    "https://t.ly/2ESW",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_t2m_io() {
-    let url = "https://t2m.io/SSQhKqJ2";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_t2m_io,
+    "https://t2m.io/SSQhKqJ2",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_tiny_cc() {
-    let url = "https://tiny.cc/5ocwtz";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_tiny_cc,
+    "https://tiny.cc/5ocwtz",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_tiny_pl() {
-    let url = "https://tiny.pl/rsjgq";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.google.com/search?q=rust&"));
-}
+test_shorten_link!(
+    test_tiny_pl,
+    "https://tiny.pl/rsjgq",
+    starts_with,
+    "https://www.google.com/search?q=rust&"
+);
 
-#[tokio::test]
-async fn test_tinurl_com() {
-    let url = "https://tinyurl.com/2j582c6a";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://google.com".to_string()));
-}
+test_shorten_link!(
+    test_tinurl_com,
+    "https://tinyurl.com/2j582c6a",
+    eq,
+    "https://google.com"
+);
 
-#[tokio::test]
-async fn test_tiny_one() {
-    let url = "https://tiny.one/f94uhh4x";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://google.com/".to_string()));
-}
+test_shorten_link!(
+    test_tiny_one,
+    "https://tiny.one/f94uhh4x",
+    eq,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_tny_sh() {
-    let url = "https://tny.sh/5C3X9Ss";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://google.com/".to_string()));
-}
+test_shorten_link!(
+    test_tny_sh,
+    "https://tny.sh/5C3X9Ss",
+    eq,
+    "http://google.com/"
+);
 
-#[tokio::test]
-async fn test_tr_im() {
-    let url = "https://tr.im/1iMz2";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url.unwrap().starts_with("https://google.com/"));
-}
+test_shorten_link!(
+    test_tr_im,
+    "https://tr.im/1iMz2",
+    starts_with,
+    "https://google.com/"
+);
 
-#[tokio::test]
-async fn test_trib_al() {
-    let url = "https://trib.al/YKNecc2";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://mashable.com/article"));
-}
+test_shorten_link!(
+    test_trib_al,
+    "https://trib.al/YKNecc2",
+    starts_with,
+    "https://mashable.com/article"
+);
 
-#[tokio::test]
-async fn test_u_to() {
-    let url = "https://u.to/P05FGw";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.google.com/search?q=rust"));
-}
+test_shorten_link!(
+    test_u_to,
+    "https://u.to/P05FGw",
+    starts_with,
+    "https://www.google.com/search?q=rust"
+);
 
-#[tokio::test]
-async fn test_v_gd() {
-    let url = "https://v.gd/6H6dYQ";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("https://www.google.com/".to_string()));
-}
+test_shorten_link!(
+    test_v_gd,
+    "https://v.gd/6H6dYQ",
+    eq,
+    "https://www.google.com/"
+);
 
-#[tokio::test]
-async fn test_virg_in() {
-    let url = "https://virg.in/9sj";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(
-        expanded_url,
-        Ok("https://www.virginactive.co.za/quest".to_string())
-    );
-}
+test_shorten_link!(
+    test_virg_in,
+    "https://virg.in/9sj",
+    eq,
+    "https://www.virginactive.co.za/quest"
+);
 
-#[tokio::test]
-async fn test_vzturl_com() {
-    let url = "https://vzturl.com/bqd20";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.amazon.com/Sabrent-Thunderbolt-"));
-}
+test_shorten_link!(
+    test_vzturl_com,
+    "https://vzturl.com/bqd20",
+    starts_with,
+    "https://www.amazon.com/Sabrent-Thunderbolt-"
+);
 
-#[tokio::test]
-async fn test_waa_ai() {
-    let url = "https://waa.ai/muZV";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.google.com/search?q=rust"));
-}
+test_shorten_link!(
+    test_waa_ai,
+    "https://waa.ai/muZV",
+    starts_with,
+    "https://www.google.com/search?q=rust"
+);
 
-#[tokio::test]
-async fn test_yourwish_es() {
-    let url = "http://yourwish.es/oxgyc";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert!(expanded_url
-        .unwrap()
-        .starts_with("https://www.amazon.com/Sabrent-Thunderbolt"));
-}
+test_shorten_link!(
+    test_yourwish_es,
+    "http://yourwish.es/oxgyc",
+    starts_with,
+    "https://www.amazon.com/Sabrent-Thunderbolt"
+);
 
-#[tokio::test]
-async fn test_zpr_io() {
-    let url = "http://zpr.io/nniJB";
-    let expanded_url = unshorten(url, None).await;
-    assert!(expanded_url.is_ok());
-    assert_eq!(expanded_url, Ok("http://www.archiveteam.org/".to_string()));
-}
+test_shorten_link!(
+    test_zpr_io,
+    "http://zpr.io/nniJB",
+    eq,
+    "http://www.archiveteam.org/"
+);
