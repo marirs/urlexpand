@@ -55,24 +55,6 @@ macro_rules! test_shorten_link {
     };
 }
 
-test_shorten_link!(test_adf_ly, "https://adf.ly/HmtTG", eq, "http://google.com");
-
-test_shorten_link!(test_adfoc_us, "http://adfoc.us/x1", eq, "http://google.com");
-
-test_shorten_link!(
-    test_amzn_to,
-    "https://amzn.to/2SdesXo",
-    eq,
-    "https://www.amazon.com/gp/offer-listing/"
-);
-
-test_shorten_link!(
-    test_atominik_com,
-    "https://atominik.com/2YTd",
-    contains,
-    "weebly.com"
-);
-
 test_shorten_link!(
     test_bit_ly,
     "https://bit.ly/3alqLKi",
@@ -93,8 +75,6 @@ test_shorten_link!(
     eq,
     "http://www.google.com/"
 );
-
-test_shorten_link!(test_bn_gy, "https://bn.gy/x7xUl", eq, "https://google.com/");
 
 test_shorten_link!(
     test_buff_ly,
@@ -124,12 +104,6 @@ test_shorten_link!(
     "https://www.google.com/"
 );
 
-test_shorten_link!(
-    test_cutt_us,
-    "https://cutt.us/keYiy",
-    eq,
-    "https://www.google.com"
-);
 
 test_shorten_link!(
     test_db_tt,
@@ -144,15 +118,6 @@ test_shorten_link!(
     eq,
     "https://www.facebook.com/mashable"
 );
-
-test_shorten_link!(
-    test_fumacrom_com,
-    "https://fumacrom.com/1KP3",
-    eq,
-    "https://www.google.com"
-);
-
-test_shorten_link!(test_j_gs, "http://j.gs/AXr9", eq, "https://microsoft.com");
 
 test_shorten_link!(
     test_git_io,
@@ -189,19 +154,6 @@ test_shorten_link!(
     "https://www.google.com/"
 );
 
-test_shorten_link!(
-    test_intamema_com,
-    "http://intamema.com/HjU",
-    starts_with,
-    "http://www.google.com"
-);
-
-test_shorten_link!(
-    test_is_gd,
-    "https://is.gd/EuvYes",
-    starts_with,
-    "https://www.google.com/"
-);
 
 test_shorten_link!(
     test_ity_im,
@@ -260,13 +212,6 @@ test_shorten_link!(
 );
 
 test_shorten_link!(
-    test_q_gs,
-    "http://q.gs/async fnOHk",
-    eq,
-    "https://www.google.com"
-);
-
-test_shorten_link!(
     test_qr_ae,
     "http://qr.ae/7FQS9",
     starts_with,
@@ -299,20 +244,6 @@ test_shorten_link!(
     "https://rotf.lol/4scu3nzz",
     eq,
     "https://google.com/"
-);
-
-test_shorten_link!(
-    test_s_coop,
-    "https://s.coop/7oxn",
-    starts_with,
-    "https://www.google.com/"
-);
-
-test_shorten_link!(
-    test_s_id,
-    "https://s.id/A87Cn",
-    eq,
-    "https://www.google.com/"
 );
 
 test_shorten_link!(
