@@ -29,7 +29,18 @@ pub fn is_shortened(url: &str) -> bool {
     SERVICES.iter().any(|x| url.contains(x))
 }
 
+#[cfg(feature = "blocking")]
 pub fn unshorten_blocking(url: &str, timeout: Option<Duration>) -> Result<String> {
+    //! UnShorten a shortened URL
+    //! ## Example
+    //! ```ignore
+    //!  use std::time::Duration;
+    //!  use urlexpand::unshorten_blocking;
+    //!
+    //!  let url = "https://bit.ly/3alqLKi";
+    //!  assert!(unshorten_blocking(url, Some(Duration::from_secs(10))).await.is_some());   // with timeout
+    //!  assert!(unshorten_blocking(url, None).await.is_some());    // without timeout
+    //! ```
     let rt = tokio::runtime::Runtime::new()?;
     rt.block_on(unshorten(url, timeout))
 }
@@ -37,15 +48,13 @@ pub fn unshorten_blocking(url: &str, timeout: Option<Duration>) -> Result<String
 pub async fn unshorten(url: &str, timeout: Option<Duration>) -> Result<String> {
     //! UnShorten a shortened URL
     //! ## Example
-    //! ```rust
-    //! use std::time::Duration;
-    //! use urlexpand::unshorten;
+    //! ```ignore
+    //!  use std::time::Duration;
+    //!  use urlexpand::unshorten;
     //!
-    //! fn main() {
-    //!     let url = "https://bit.ly/3alqLKi";
-    //!     assert!(unshorten(url, Some(Duration::from_secs(10))).is_some());   // with timeout
-    //!     assert!(unshorten(url, None).is_some());    // without timeout
-    //! }
+    //!  let url = "https://bit.ly/3alqLKi";
+    //!  assert!(unshorten(url, Some(Duration::from_secs(10))).await.is_ok());   // with timeout
+    //!  assert!(unshorten(url, None).await.is_ok());    // without timeout
     //! ```
     // Check to make sure url is valid
     ready(validate(url).ok_or(Error::NoString))

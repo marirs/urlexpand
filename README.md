@@ -9,8 +9,9 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 ### Example Usage
 
+- async
 ```toml
-urlexpand = "0.1.3"
+urlexpand = "0.2.0"
 ```
 
 and then
@@ -21,8 +22,26 @@ use urlexpand::unshorten;
 
 fn main() {
     let url = "https://bit.ly/3alqLKi";
-    assert!(unshorten(url, Some(Duration::from_secs(10))).is_some());   // with timeout
-    assert!(unshorten(url, None).is_some());    // without timeout
+    assert!(unshorten(url, Some(Duration::from_secs(10))).await.is_ok());   // with timeout
+    assert!(unshorten(url, None).await.is_ok());    // without timeout
+}
+```
+
+- blocking
+```toml
+urlexpand = { version = "0.2.0", features = ["blocking"] }
+```
+
+and then
+
+```rust
+use std::time::Duration;
+use urlexpand::unshorten;
+
+fn main() {
+    let url = "https://bit.ly/3alqLKi";
+    assert!(unshorten_blocking(url, Some(Duration::from_secs(10))).is_ok());   // with timeout
+    assert!(unshorten_blocking(url, None).is_ok());    // without timeout
 }
 ```
 

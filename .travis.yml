@@ -10,5 +10,5 @@ matrix:
     - rust: beta
     - rust: nightly
 script:
-  - cargo build
-  - cargo test
+  - cargo build --features="blocking"
+  - cargo test --features="blocking"
