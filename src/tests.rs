@@ -303,13 +303,6 @@ test_shorten_link!(
 );
 
 test_shorten_link!(
-    test_tiny_pl,
-    "https://tiny.pl/rsjgq",
-    starts_with,
-    "https://www.google.com/search?q=rust&"
-);
-
-test_shorten_link!(
     test_tinurl_com,
     "https://tinyurl.com/2j582c6a",
     eq,
