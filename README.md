@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.0"
+urlexpand = "0.2.2"
 ```
 
 and then
