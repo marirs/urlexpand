@@ -14,7 +14,7 @@ pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<Stri
             ready(
                 html.split("click_url = \"")
                     .nth(1)
-                    .and_then(|r| r.splitn(2, "\";").next())
+                    .and_then(|r| r.split("\";").next())
                     .map(Into::into)
                     .ok_or(Error::NoString),
             )

@@ -55,8 +55,8 @@ pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<Stri
             ready(
                 html.split("ysmm = '")
                     .nth(1)
-                    .and_then(|r| r.splitn(2, "';").next())
-                    .and_then(|ysmm| decode_ysmm(ysmm))
+                    .and_then(|r| r.split("';").next())
+                    .and_then(decode_ysmm)
                     .ok_or(Error::NoString),
             )
         })

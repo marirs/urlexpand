@@ -27,7 +27,7 @@ async fn get_from_html(url: &str, timeout: Option<Duration>) -> Result<String> {
                 html.split("api.miniature.io/?url=")
                     .last()
                     .and_then(|r| r.split('"').next())
-                    .and_then(|r| Some(r.to_string()))
+                    .map(|r| r.to_string())
                     .ok_or(Error::NoString),
             )
         })

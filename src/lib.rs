@@ -21,10 +21,8 @@ pub fn is_shortened(url: &str) -> bool {
     //! ```rust
     //! use urlexpand::is_shortened;
     //!
-    //! fn main() {
-    //!     let url = "https://bit.ly/id";
-    //!     assert!(is_shortened(url));
-    //! }
+    //! let url = "https://bit.ly/id";
+    //! assert!(is_shortened(url));
     //! ```
     SERVICES.iter().any(|x| url.contains(x))
 }
