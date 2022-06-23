@@ -1,6 +1,6 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 86] = [
+pub(crate) static SERVICES: [&str; 87] = [
     "adf.ly",
     "adfoc.us",
     "amzn.to",
@@ -65,6 +65,7 @@ pub(crate) static SERVICES: [&str; 86] = [
     "snipurl.com",
     "snurl.com",
     "split.to",
+    "surl.li",
     "t.co",
     "t.ly",
     "t2m.io",

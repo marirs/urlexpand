@@ -104,7 +104,6 @@ test_shorten_link!(
     "https://www.google.com/"
 );
 
-
 test_shorten_link!(
     test_db_tt,
     "https://db.tt/cchelp",
@@ -153,7 +152,6 @@ test_shorten_link!(
     eq,
     "https://www.google.com/"
 );
-
 
 test_shorten_link!(
     test_ity_im,
@@ -272,6 +270,20 @@ test_shorten_link!(
     "snip.ly/soyummy-cookbook",
     starts_with,
     "https://www.soyummystore.com"
+);
+
+test_shorten_link!(
+    test_surl_ly_redirect,
+    "surl.li/cgonw",
+    starts_with,
+    "https://bing.com/"
+);
+
+test_shorten_link!(
+    test_surl_ly,
+    "surl.li/aap",
+    starts_with,
+    "http://google.com"
 );
 
 test_shorten_link!(

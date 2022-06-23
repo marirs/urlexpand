@@ -8,6 +8,7 @@ pub(crate) mod generic;
 pub(crate) mod redirect;
 pub(crate) mod refresh;
 pub(crate) mod shorturl;
+pub(crate) mod surlli;
 
 use futures::future::{ready, TryFutureExt};
 
@@ -37,8 +38,8 @@ pub(crate) fn custom_redirect_policy() -> Policy {
     })
 }
 
-/// Get Page Content if status==200
-pub(crate) async fn from_url(url: &str, timeout: Option<Duration>) -> Result<String> {
+/// Get Page Content if status!=200
+pub(crate) async fn from_url_not_200(url: &str, timeout: Option<Duration>) -> Result<String> {
     ready(get_client_builder(timeout).build())
         .and_then(|client| async move {
             client
@@ -60,6 +61,26 @@ pub(crate) async fn from_url(url: &str, timeout: Option<Duration>) -> Result<Str
                 Ok(response.text().await?)
             }
         })
+        .await
+}
+
+/// get page content irrespective of status code
+pub(crate) async fn from_url(url: &str, timeout: Option<Duration>) -> Result<String> {
+    ready(get_client_builder(timeout).build())
+        .and_then(|client| async move {
+            client
+                .get(url)
+                .header(
+                    "Accept",
+                    "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                )
+                .header("Accept-Language", "en-US,en;q=0.5")
+                .header("Cache-Control", "no-cache")
+                .send()
+                .await
+        })
+        .err_into()
+        .and_then(|response| async move { Ok(response.text().await?) })
         .await
 }
 

@@ -117,6 +117,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `snipurl.com`
 - `snurl.com`
 - `split.to` - Linksplit  
+- `surl.li` - Hyperhost (Secom.com.ua)
 - `t.co` - Twitter
 - `t.ly` - T.LY Link Shortener  
 - `t2m.io` - T2M aka "Text to Marketing" (t2mio.com)
