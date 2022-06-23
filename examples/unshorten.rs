@@ -12,13 +12,9 @@ async fn main() {
 
     let x = urlexpand::is_shortened(&url);
     if x {
-        match  urlexpand::unshorten(&url, None).await {
-            Ok(u) => println!(
-                "{}\nis_shortened? {}\nExpanded URL = {:?}",
-                url, x, u
-            ),
-            Err(e) => println!("{}", e)
-
+        match urlexpand::unshorten(&url, None).await {
+            Ok(u) => println!("{}\nis_shortened? {}\nExpanded URL = {:?}", url, x, u),
+            Err(e) => println!("{}", e),
         }
     } else {
         println!("{} not a short url", url)
