@@ -1,5 +1,5 @@
 // adf.ly and its associated domains
-use super::from_url;
+use super::from_url_not_200;
 use percent_encoding::percent_decode_str;
 use std::{collections::VecDeque, str::from_utf8, time::Duration};
 
@@ -50,7 +50,7 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
 
 /// URL Expander for ADF.LY and its associated shortners
 pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<String> {
-    from_url(url, timeout)
+    from_url_not_200(url, timeout)
         .and_then(|html| {
             ready(
                 html.split("ysmm = '")
