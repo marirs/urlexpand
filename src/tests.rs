@@ -148,7 +148,7 @@ test_shorten_link!(
 
 test_shorten_link!(
     test_hyperurl_co,
-    "https://hyperurl.co/qicb73",
+    "http://hyperurl.co/qicb73",
     eq,
     "https://www.google.com/"
 );
