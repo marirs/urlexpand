@@ -11,4 +11,3 @@ matrix:
     - rust: nightly
 script:
   - cargo build --features="blocking"
-  - cargo test --features="blocking"
