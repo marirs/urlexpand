@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.2"
+urlexpand = "0.2.3"
 ```
 
 and then
@@ -58,6 +58,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `atominik.com` - part of Adf.ly 
 - `ay.gy` -   part of Adf.ly
 - `b.link` - BLINK
+- `bhpho.to` - BH Photo & Video
 - `bit.ly` - Bitly Url Shortner
 - `bit.do` - Bitdo
 - `bn.gy` - BNGY  
@@ -76,6 +77,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `flip.it` - Flipboard  
 - `fumacrom.com` - part of Adf.ly
 - `git.io` - Github  
+- `geni.us` - Genius Link
 - `goo.gl` - Google Service has now stopped their url shortening service 
 - `gns.io` - part of trim (tr.im)
 - `hmm.rs` - HMM.RS  
@@ -94,6 +96,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `nmc.sg` - instra corporation pty
 - `nowlinks.net` - Now Links  
 - `ow.ly` - part of Hootsuite  
+- `prf.hn` -  Partnerize
 - `plu.sh` - Plush  
 - `q.gs` - part of Adfly  
 - `qr.ae` - Quora  

@@ -1,12 +1,13 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 87] = [
+pub(crate) static SERVICES: [&str; 90] = [
     "adf.ly",
     "adfoc.us",
     "amzn.to",
     "atominik.com",
     "ay.gy",
     "b.link",
+    "bhpho.to",
     "bit.ly",
     "bit.do",
     "bn.gy",
@@ -24,6 +25,7 @@ pub(crate) static SERVICES: [&str; 87] = [
     "fb.me",
     "flip.it",
     "fumacrom.com",
+    "geni.us",
     "git.io",
     "goo.gl",
     "gns.io",
@@ -44,6 +46,7 @@ pub(crate) static SERVICES: [&str; 87] = [
     "nowlinks.net",
     "ow.ly",
     "plu.sh",
+    "prf.hn",
     "q.gs",
     "qr.ae",
     "qr.net",
