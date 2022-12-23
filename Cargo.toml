@@ -16,7 +16,7 @@ base64 = "0.13.0"
 futures = "0.3.21"
 percent-encoding = "2.1.0"
 regex = "1"
-reqwest = "0.11.11"
+reqwest = { version = "0.11.11", default-features = false}
 thiserror = "1"
 tokio = { version = "1.19.2", optional = true }
 url = "2.2.2"
@@ -29,8 +29,10 @@ tokio = { version = "1.19.2", features = ["macros", "rt-multi-thread"] }
 all-features = true
 
 [features]
+default = ["native-tls"]
 blocking = ["tokio"]
-
+rustls-tls = ["reqwest/rustls-tls"]
+native-tls = ["reqwest/native-tls"]
 [badges]
 travis-ci = { repository = "marirs/urlexpand" }
 
