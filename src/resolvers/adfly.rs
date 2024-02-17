@@ -1,9 +1,9 @@
 // adf.ly and its associated domains
 use super::from_url_not_200;
+use base64::{engine::general_purpose, Engine as _};
+use futures::future::{ready, TryFutureExt};
 use percent_encoding::percent_decode_str;
 use std::{collections::VecDeque, str::from_utf8, time::Duration};
-
-use futures::future::{ready, TryFutureExt};
 
 use crate::{Error, Result};
 
@@ -38,7 +38,9 @@ fn decode_ysmm(ysmm: &str) -> Option<String> {
             }
         });
 
-    let buf = base64::decode(data.drain(..).collect::<String>()).unwrap();
+    let buf = general_purpose::STANDARD
+        .decode(data.drain(..).collect::<String>())
+        .unwrap();
 
     from_utf8(&buf).ok().and_then(|v| {
         v[16..v.len() - 16]
