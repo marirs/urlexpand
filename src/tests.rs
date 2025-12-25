@@ -189,6 +189,13 @@ test_shorten_link!(
 );
 
 test_shorten_link!(
+    test_lnkd_in,
+    "https://lnkd.in/g3T6zqDE",
+    starts_with,
+    "https://paulgraham.com"
+);
+
+test_shorten_link!(
     test_mlz_la,
     "https://mzl.la/3eqJ565",
     eq,
