@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.3"
+urlexpand = "0.2.5"
 ```
 
 and then
@@ -90,6 +90,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `j.mp` - part of Bitly  
 - `kutt.it` - Kutt
 - `ldn.im` - part of trim (tr.im)
+- `lnkd.in` - linkedin
 - `linklyhq.com` - Linkly HQ
 - `microify.com` - part of Adf.ly
 - `mzl.la` - Mozilla Org  
