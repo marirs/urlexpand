@@ -76,6 +76,7 @@ pub async fn unshorten(url: &str, timeout: Option<Duration>) -> Result<String> {
 
                 // Specific Resolvers
                 "adfoc.us" => resolvers::adfocus::unshort(&validated_url, timeout).await,
+                "lnkd.in" => resolvers::linkedin::unshort(&validated_url, timeout).await,
                 "shorturl.at" => resolvers::shorturl::unshort(&validated_url, timeout).await,
                 "surl.li" => resolvers::surlli::unshort(&validated_url, timeout).await,
 

@@ -5,7 +5,9 @@ use urlexpand;
 async fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
-        println!("pass a url to expand: (eg: ./unhorten https://bit.ly/3alqLKi)");
+        println!("pass a url to expand:");
+        println!("  eg: ./unshorten https://bit.ly/3alqLKi");
+        println!("  eg: ./unshorten https://lnkd.in/eUeGcvsr");
         exit(1);
     }
     let url = args[1].to_owned();
