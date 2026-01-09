@@ -18,10 +18,7 @@ pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<Stri
     // If we're still on LinkedIn domain, try parsing the interstitial page
     Ok(
         if expanded_url.contains("linkedin.com") || expanded_url.contains("lnkd.in") {
-            match get_from_html(url, timeout).await {
-                Ok(u) => u,
-                Err(_) => expanded_url, // Fallback to whatever generic gave us
-            }
+            get_from_html(url, timeout).await.unwrap_or_else(|_| expanded_url)
         } else {
             expanded_url
         },
