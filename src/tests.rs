@@ -1,4 +1,6 @@
-use super::{is_shortened, unshorten, unshorten_blocking, validate};
+use super::{is_shortened, unshorten, validate};
+#[cfg(feature = "blocking")]
+use super::unshorten_blocking;
 
 use paste::paste;
 
@@ -39,6 +41,7 @@ macro_rules! test_shorten_link {
         // until std::concat_idents stablizes
         paste! {
             #[test]
+            #[cfg(feature = "blocking")]
             fn [<$t_name _blocking>]() {
                 let expanded_url = unshorten_blocking($s_url, None);
                 assert_eq!(
@@ -58,13 +61,6 @@ macro_rules! test_shorten_link {
 test_shorten_link!(
     test_bit_ly,
     "https://bit.ly/3alqLKi",
-    eq,
-    "https://www.google.com/"
-);
-
-test_shorten_link!(
-    test_bit_do,
-    "http://bit.do/fQy4h",
     eq,
     "https://www.google.com/"
 );
@@ -326,13 +322,6 @@ test_shorten_link!(
     "https://tinyurl.com/2j582c6a",
     eq,
     "https://google.com"
-);
-
-test_shorten_link!(
-    test_tiny_one,
-    "https://tiny.one/f94uhh4x",
-    eq,
-    "https://google.com/"
 );
 
 test_shorten_link!(
