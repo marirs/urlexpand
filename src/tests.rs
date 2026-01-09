@@ -66,6 +66,13 @@ test_shorten_link!(
 );
 
 test_shorten_link!(
+    test_aliexpress,
+    "https://s.click.aliexpress.com/e/_c3iB26TD",
+    starts_with,
+    "https://www.aliexpress.com/item/"
+);
+
+test_shorten_link!(
     test_b_link,
     "https://b.link/cx2x2l",
     eq,
