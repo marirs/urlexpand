@@ -106,7 +106,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `rb.gy` - RBGY Free URL Shortner  
 - `rlu.ru` - RLU.RU  
 - `rotf.lol` - part of tinyurl.com
-- `s.aliexpress.com` - Ali Express
+- `s.click.aliexpress.com` - Ali Express
 - `s.coop` - SCOOP  
 - `s.id` - SID (home.s.id)  
 - `sh.st` - shorte.st
