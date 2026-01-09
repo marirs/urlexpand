@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.5"
+urlexpand = "0.2.6"
 ```
 
 and then
@@ -29,7 +29,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.0", features = ["blocking"] }
+urlexpand = { version = "0.2.6", features = ["blocking"] }
 ```
 
 and then
@@ -106,6 +106,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `rb.gy` - RBGY Free URL Shortner  
 - `rlu.ru` - RLU.RU  
 - `rotf.lol` - part of tinyurl.com
+- `s.aliexpress.com` - Ali Express
 - `s.coop` - SCOOP  
 - `s.id` - SID (home.s.id)  
 - `sh.st` - shorte.st
