@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.6"
+urlexpand = "0.2.7"
 ```
 
 and then
@@ -29,7 +29,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.6", features = ["blocking"] }
+urlexpand = { version = "0.2.7", features = ["blocking"] }
 ```
 
 and then
@@ -130,6 +130,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `tiny.pl` - TinyPL  
 - `tinyium.com` - part of Adf.ly  
 - `tinyurl.com` - TinyURL
+- `tinyurl.ae` - TinyURL
 - `tiny.one` - part of tinyurl.com
 - `tny.im` - TNY.IM  
 - `tny.sh` - Linksplit  
