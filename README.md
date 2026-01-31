@@ -52,6 +52,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 ```
 
 ### Current list of URL Shortening services supported
+- `2cm.es` - 2CM / l8.nu
 - `adf.ly` - Adfly
 - `adfoc.us` - AdFocus  
 - `amzn.to` - Amazon  
