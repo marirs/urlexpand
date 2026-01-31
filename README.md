@@ -80,6 +80,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `git.io` - Github  
 - `geni.us` - Genius Link
 - `goo.gl` - Google Service has now stopped their url shortening service 
+- `goto.now` - GOTO.NOW
 - `gns.io` - part of trim (tr.im)
 - `hmm.rs` - HMM.RS  
 - `ht.ly` - part of Hootsuite  

@@ -1,6 +1,7 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 94] = [
+pub(crate) static SERVICES: [&str; 95] = [
+    "goto.now",
     "adf.ly",
     "adfoc.us",
     "amzn.to",
