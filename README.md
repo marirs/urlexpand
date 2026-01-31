@@ -5,7 +5,9 @@ URLEXPAND
 [![Build Status](https://travis-ci.com/marirs/urlexpand.svg?branch=main)](https://travis-ci.com/marirs/urlexpand)
 [![GitHub license](https://img.shields.io/github/license/marirs/urlexpand)](https://github.com/marirs/urlexpand/blob/main/LICENSE)
 
-A URL expansion engine that supports an extensive registry of shortening services. It combines fast domain detection with robust resolution strategies: HTTP redirect following, pattern-based extraction from intermediate HTML, and API-based expansion for shorteners that don’t emit standard 3xx redirects. Returns the canonical final URL with consistent error handling and configurable timeouts.
+A URL expansion engine that supports an extensive registry of shortening services. It combines fast domain detection with robust resolution strategies: HTTP redirect following, pattern-based extraction from intermediate HTML, and API-based expansion for shorteners that don’t emit standard 3xx redirects. Returns the canonical final URL with consistent error handling and configurable timeouts. 
+
+This module recognizes hundreds of popular URL shorteners and expands them to their true destination
 
 ### Example Usage
 
