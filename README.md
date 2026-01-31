@@ -56,6 +56,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `adf.ly` - Adfly
 - `adfoc.us` - AdFocus  
 - `amzn.to` - Amazon  
+- `amzn.id` - Dub.sh
 - `atominik.com` - part of Adf.ly 
 - `ay.gy` -   part of Adf.ly
 - `b.link` - BLINK
@@ -65,19 +66,25 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `bn.gy` - BNGY  
 - `branch.io` - Branch.io  
 - `buff.ly` - Buffer URL Shortner
+- `cal.link` - Dub.sh
 - `ceesty.com` - part of sh.st  
+- `chatg.pt` - Dub.sh
 - `chollo.to` - Chollo Ecommerce
 - `cli.re` - Capsulink
 - `cli.fm` - Capsulink  
 - `cutt.ly` - Cuttly
 - `cutt.us` - Cutt us  
 - `db.tt` - Dropbox  
+- `dub.sh` - Dub.sh
 - `f.ls` - Free Link Shortener
 - `fa.by` - part of rebrand.ly
 - `fb.me` - Facebook  
+- `fig.page` - Dub.sh
 - `flip.it` - Flipboard  
 - `fumacrom.com` - part of Adf.ly
+- `ggl.link` - Dub.sh
 - `git.io` - Github  
+- `git.new` - Dub.sh
 - `geni.us` - Genius Link
 - `goo.gl` - Google Service has now stopped their url shortening service 
 - `goto.now` - GOTO.NOW
@@ -124,6 +131,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `snipurl.com`
 - `snurl.com`
 - `split.to` - Linksplit  
+- `spti.fi` - Dub.sh
 - `surl.li` - Hyperhost (Secom.com.ua)
 - `t.co` - Twitter
 - `t.ly` - T.LY Link Shortener  
