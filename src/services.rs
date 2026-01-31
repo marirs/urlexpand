@@ -1,6 +1,56 @@
+//! Known URL shortener service registry.
+//!
+//! This module provides a static list of domains belonging to popular URL
+//! shortening services and a helper function to detect whether a given URL
+//! belongs to one of them.
+//!
+//! It is used as a **first-pass filter** before attempting expansion. By
+//! identifying the shortening service early, the library can:
+//!
+//! - Route the URL to a service-specific resolver (when available)
+//! - Apply generic redirect-following logic only when needed
+//! - Avoid unnecessary work for already-expanded URLs
+//!
+//! ## How detection works
+//!
+//! The detection is string-based: if the URL contains any domain listed in
+//! [`SERVICES`], it is considered to belong to a known shortener.
+//!
+//! This approach is fast and works well in practice, since shortener URLs
+//! usually embed their domain directly in the visible URL.
+//!
+//! ## Limitations
+//!
+//! - Detection is **substring-based**, not a strict hostname match. This is
+//!   intentional for performance and simplicity, but it may produce false
+//!   positives in rare edge cases.
+//! - Some shortening services use custom domains per customer. Those will not
+//!   be detected unless added to this list.
+//! - New shorteners appear frequently; this list may need periodic updates.
+//!
+//! ## Adding a new service
+//!
+//! To support a new shortener:
+//!
+//! 1. Add its domain to the [`SERVICES`] array
+//! 2. (Optional) Implement a dedicated resolver module if it requires special
+//!    handling beyond standard HTTP redirects
+//!
+//! ## Example
+//!
+//! ```ignore
+//! let url = "https://bit.ly/abc123";
+//! if let Some(service) = which_service(url) {
+//!     println!("Shortened using: {service}");
+//! }
+//! ```
+//!
+//! If the URL does not match any known shortener domain, [`which_service`]
+//! returns `None`.
+
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 105] = [
+pub(crate) static SERVICES: &[&str] = &[
     "adf.ly",
     "adfoc.us",
     "amzn.to",
