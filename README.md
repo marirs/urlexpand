@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.7"
+urlexpand = "0.2.8"
 ```
 
 and then
@@ -29,7 +29,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.7", features = ["blocking"] }
+urlexpand = { version = "0.2.8", features = ["blocking"] }
 ```
 
 and then
