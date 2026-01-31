@@ -1,6 +1,6 @@
 /// List of domains for some known
 /// URL shortening services.
-pub(crate) static SERVICES: [&str; 104] = [
+pub(crate) static SERVICES: [&str; 105] = [
     "adf.ly",
     "adfoc.us",
     "amzn.to",
@@ -47,6 +47,7 @@ pub(crate) static SERVICES: [&str; 104] = [
     "j.mp",
     "kutt.it",
     "2cm.es",
+    "l1nq.com",
     "ldn.im",
     "linklyhq.com",
     "lnkd.in",

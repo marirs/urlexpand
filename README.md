@@ -11,7 +11,7 @@ Expand / Unshorten an exhaustive list of Shortened URL's.
 
 - async
 ```toml
-urlexpand = "0.2.8"
+urlexpand = "0.2.9"
 ```
 
 and then
@@ -29,7 +29,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.8", features = ["blocking"] }
+urlexpand = { version = "0.2.9", features = ["blocking"] }
 ```
 
 and then
@@ -98,6 +98,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `j.gs` - part of Adf.ly
 - `j.mp` - part of Bitly  
 - `kutt.it` - Kutt
+- `l1nq.com` - urlshort.dev
 - `ldn.im` - part of trim (tr.im)
 - `lnkd.in` - linkedin
 - `linklyhq.com` - Linkly HQ

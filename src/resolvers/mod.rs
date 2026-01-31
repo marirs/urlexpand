@@ -10,6 +10,7 @@ pub(crate) mod redirect;
 pub(crate) mod refresh;
 pub(crate) mod shorturl;
 pub(crate) mod surlli;
+pub(crate) mod urlshortdev;
 
 use futures::future::{ready, TryFutureExt};
 

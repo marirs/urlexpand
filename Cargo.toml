@@ -1,6 +1,6 @@
 [package]
 name = "urlexpand"
-version = "0.2.8"
+version = "0.2.9"
 description = "Expand / Unshorten an exhaustive list of Shortened URL's"
 authors = ["Marirs <marirs@gmail.com>"]
 keywords = ["expand", "unshorten", "url", "link"]
@@ -16,7 +16,8 @@ base64 = "0.22.1"
 futures = "0.3.21"
 percent-encoding = "2.1.0"
 regex = "1"
-reqwest = { version = "0.13.1", features = ["native-tls-vendored"] }
+reqwest = { version = "0.13.1", features = ["native-tls-vendored", "json"] }
+serde = { version = "1.0.228", features = ["derive"] }
 thiserror = "2"
 tokio = { version = "1.19.2", optional = true }
 url = "2.2.2"
