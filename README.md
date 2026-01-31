@@ -146,6 +146,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `washex.am` - part of bit.ly  
 - `x.co` - GoDaddy URL Shortner (currently shutdown)  
 - `y2u.be` - YouTube URL Shortner by Firewrench inc.  
+- `yt.vu` - YT.vu
 - `yourwish.es` - Your Wishes  
 - `zpr.io` - Zapier
 
