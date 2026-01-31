@@ -1,3 +1,127 @@
+//! # urlexpand
+//!
+//! A small library for expanding (“unshortening”) shortened URLs into their final destination.
+//!
+//! The crate is designed around **resolver modules**, where each resolver knows how to expand
+//! one (or a family) of shortener services—especially the ones that don’t rely purely on HTTP 3xx
+//! redirects and instead use HTML/JS-based redirect pages.
+//!
+//! ## Goals
+//!
+//! - **Fast, reliable expansion** for common shorteners
+//! - **Extensible** resolver structure (add a new module for a new shortener)
+//! - **Non-JS resolution** (no headless browser) using a mix of redirect following + parsing + API lookups
+//! - Consistent `Result<T>` / `Error` handling across resolvers
+//!
+//! ## How it works (high level)
+//!
+//! 1. The caller provides a URL (potentially shortened).
+//! 2. The library picks a resolver (or tries several in order).
+//! 3. The resolver expands the URL using one of these strategies:
+//!    - **HTTP redirect following** (3xx chains)
+//!    - **HTML pattern extraction** (regex-based “click-through” / meta / JS hints)
+//!    - **Service API lookup** (when the browser normally uses JS to fetch the destination)
+//! 4. The final URL is returned as a `String`.
+//!
+//! ## Module layout
+//!
+//! A common structure looks like this:
+//!
+//! - `src/lib.rs`
+//!   - exports `Result` and `Error`
+//!   - exports the public expansion API (if you have one)
+//! - `src/error.rs`
+//!   - defines `Error` and error conversions (e.g. `From<reqwest::Error>`)
+//! - `src/resolvers/`
+//!   - each file is a shortener-specific resolver (e.g. `tinyurl.rs`, `urlshortdev.rs`, etc.)
+//! - `src/resolvers/mod.rs`
+//!   - re-exports resolver functions and common helper utilities
+//!
+//! ## Common helper utilities
+//!
+//! Many resolver modules share helpers such as:
+//!
+//! - `get_client_builder(timeout)` — returns a configured `reqwest::ClientBuilder`
+//! - `from_re(text, pattern)` — returns the first capture group match as `Option<String>`
+//!
+//! These helpers keep each resolver tiny and consistent.
+//!
+//! ## Error handling model
+//!
+//! Resolvers generally return:
+//!
+//! - `Ok(final_url)` on success
+//! - `Err(Error::NoString)` when a redirect page/API response doesn’t contain a destination URL
+//! - `Err(Error::...)` for network/HTTP/parse errors
+//!
+//! To make resolver modules ergonomic, it’s recommended that `Error` implements:
+//!
+//! - `From<reqwest::Error>`
+//! - (optionally) `From<std::io::Error>` or other error conversions you use
+//!
+//! That lets resolvers freely use `?` or `.map_err(Error::from)`.
+//!
+//! ## Timeouts and redirect limits
+//!
+//! Timeouts are typically passed into each resolver (`Option<Duration>`) and applied via the shared
+//! HTTP client builder. Redirect limits should also be configured in one place (your builder) so all
+//! resolvers behave consistently.
+//!
+//! ## Adding a new resolver
+//!
+//! 1. Create `src/resolvers/<service>.rs`
+//! 2. Implement:
+//!
+//! ```ignore
+//! pub(crate) async fn unshort(url: &str, timeout: Option<std::time::Duration>) -> crate::Result<String> {
+//!     // resolve & return final URL
+//! }
+//! ```
+//!
+//! 3. Re-export it from `src/resolvers/mod.rs`
+//! 4. Add it to your dispatcher/registry if you have one (e.g., “try resolvers in order”).
+//!
+//! ### Resolver style guideline
+//!
+//! Keep resolvers small and focused:
+//!
+//! - follow redirects first
+//! - if the service stops on a non-redirect “intermediate page”, use either:
+//!   - regex extraction (`from_re`) or
+//!   - a small API call if the browser normally uses JS
+//!
+//! ## Example usage (library consumer)
+//!
+//! If your crate exposes a high-level function (recommended), usage might look like:
+//!
+//! ```ignore
+//! let final_url = urlexpand::expand("https://l1nq.com/yzjVi").await?;
+//! println!("{final_url}");
+//! ```
+//!
+//! Or if you call resolvers directly:
+//!
+//! ```ignore
+//! let final_url = urlexpand::resolvers::urlshortdev::unshort("https://l1nq.com/yzjVi", None).await?;
+//! ```
+//!
+//! ## Testing
+//!
+//! For deterministic tests, consider:
+//!
+//! - unit testing regex extraction helpers (`from_re`) with fixed strings
+//! - using a mock HTTP server (or recorded fixtures) for network calls
+//! - keeping “live” integration tests behind a feature flag, since shortener behavior can change
+//!
+//! ## Security considerations
+//!
+//! Expanding URLs can lead to untrusted destinations. Consider optional safeguards:
+//!
+//! - maximum redirect depth
+//! - domain allow/deny lists
+//! - blocking private IP ranges (SSRF protection) if this runs server-side
+//! - request method restrictions (typically GET only)
+//! - size limits for downloaded bodies when parsing HTML
 use std::time::Duration;
 use url::{ParseError, Url};
 
