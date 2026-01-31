@@ -123,6 +123,7 @@ pub(crate) static SERVICES: &[&str] = &[
     "short.gy",
     "shortcm.xyz",
     "shorturl.at",
+    "sl1nk.com",
     "smu.sg",
     "smq.tc",
     "snip.ly",

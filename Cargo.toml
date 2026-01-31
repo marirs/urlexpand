@@ -1,6 +1,6 @@
 [package]
 name = "urlexpand"
-version = "0.2.9"
+version = "0.2.10"
 description = "Expand / Unshorten an exhaustive list of Shortened URL's"
 authors = ["Marirs <marirs@gmail.com>"]
 keywords = ["expand", "unshorten", "url", "link"]

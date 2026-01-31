@@ -50,52 +50,117 @@
 //! - Password-protected or expired links may not resolve via the API.
 //! - The resolver does not execute JavaScript; it relies solely on HTTP and API calls.
 //! - Redirect limits and timeouts are controlled by the shared HTTP client builder.
-use super::{from_re, get_client_builder};
+use super::get_client_builder;
 use std::time::Duration;
 
 use futures::future::{ready, TryFutureExt};
 use serde::Deserialize;
+use url::Url;
 
-use crate::{Error, Result};
-
-static ENCURTADOR_CODE_RE: &str =
-    r#"https?://(?:www\.)?encurtador\.dev/redirecionamento/([A-Za-z0-9]+)"#;
+use crate::{Error, Result, services::which_service};
 
 #[derive(Debug, Deserialize)]
 struct DrApiResp {
     url: Option<String>,
 }
 
+/// Extract slug from URL:
+/// 1) If encurtador redirecionamento page → last segment after "redirecionamento"
+/// 2) Otherwise, if URL belongs to a known shortener domain → last path segment
+fn extract_slug(u: &str) -> Option<String> {
+    let parsed = Url::parse(u).ok()?;
+    let host = parsed.host_str()?.to_ascii_lowercase();
+
+    let segments: Vec<&str> = parsed
+        .path_segments()
+        .map(|it| it.filter(|s| !s.is_empty()).collect())
+        .unwrap_or_else(Vec::new);
+
+    if segments.is_empty() {
+        return None;
+    }
+
+    // Case 1: encurtador redirect landing page
+    if host == "encurtador.dev" || host == "www.encurtador.dev" {
+        if let Some(i) = segments.iter().position(|s| *s == "redirecionamento") {
+            return segments.get(i + 1..)?.last().map(|s| (*s).to_string());
+        }
+        return None;
+    }
+
+    // Case 2: any known shortener domain from your SERVICES list
+    if which_service(u).is_some() {
+        return segments.last().map(|s| (*s).to_string());
+    }
+
+    None
+}
+
+/// Resolve slug via dr-api:
+/// - If dr-api responds with redirect → return Location target
+/// - If dr-api responds with JSON { url } → return that
+async fn resolve_via_dr_api(
+    client_no_redirect: &reqwest::Client,
+    slug: &str,
+) -> Result<String> {
+    let api_url = format!("https://dr-api.encurtador.dev/encurtamentos/{}", slug);
+
+    let resp = client_no_redirect
+        .get(&api_url)
+        .header(reqwest::header::ACCEPT, "application/json,*/*")
+        .send()
+        .await?;
+
+    // Case A: redirect
+    if resp.status().is_redirection() {
+        if let Some(loc) = resp.headers().get(reqwest::header::LOCATION) {
+            let s = loc.to_str().unwrap_or("").trim();
+            if !s.is_empty() {
+                return Ok(s.to_string());
+            }
+        }
+    }
+
+    // Case B: JSON
+    if resp.status().is_success() {
+        let data: DrApiResp = resp.json().await?;
+        if let Some(u) = data.url {
+            let u = u.trim().to_string();
+            if !u.is_empty() {
+                return Ok(u);
+            }
+        }
+    }
+
+    Err(Error::Reqwest("dr-api could not resolve slug".to_string()))
+}
+
+/// Resolver for urlshort.dev-style links
 pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<String> {
     ready(get_client_builder(timeout).build())
         .map_err(Error::from)
         .and_then(|client| async move {
+            // Client that does NOT auto-follow redirects (so we can read Location headers)
+            let client_no_redirect = get_client_builder(timeout)
+                .redirect(reqwest::redirect::Policy::none())
+                .build()
+                .map_err(Error::from)?;
+
+            // Step 1: follow redirects normally to see where we land
             let resp = client.get(url).send().await.map_err(Error::from)?;
             let final_url = resp.url().to_string();
 
-            if let Some(code) = from_re(&final_url, ENCURTADOR_CODE_RE) {
-                let api_url = format!("https://dr-api.encurtador.dev/encurtamentos/{}", code);
+            // Step 2: extract slug (prefer final_url, fallback to original)
+            let slug = extract_slug(&final_url)
+                .or_else(|| extract_slug(url))
+                .ok_or(Error::NoString)?;
 
-                let api_resp: DrApiResp = client
-                    .get(api_url)
-                    .header(reqwest::header::ACCEPT, "application/json,*/*")
-                    .send()
-                    .await
-                    .map_err(Error::from)?
-                    .error_for_status()
-                    .map_err(Error::from)?
-                    .json()
-                    .await
-                    .map_err(Error::from)?;
+            // Step 3: resolve via dr-api
+            let resolved = resolve_via_dr_api(&client_no_redirect, &slug)
+                .await
+                .map_err(Error::from)?;
 
-                return api_resp
-                    .url
-                    .filter(|s| !s.trim().is_empty())
-                    .map(|s| s.trim().to_string())
-                    .ok_or(Error::NoString);
-            }
-
-            Ok(final_url)
+            Ok(resolved)
         })
         .await
 }

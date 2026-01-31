@@ -13,7 +13,7 @@ This module recognizes hundreds of popular URL shorteners and expands them to th
 
 - async
 ```toml
-urlexpand = "0.2.9"
+urlexpand = "0.2.10"
 ```
 
 and then
@@ -31,7 +31,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.9", features = ["blocking"] }
+urlexpand = { version = "0.2.10", features = ["blocking"] }
 ```
 
 and then
@@ -126,7 +126,8 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `shortcm.xyz` - part of SHORT.IO  
 - `short.gy` - SHORT.IO Service
 - `shortcm.xyz` - ShortCm
-- `shorturl.at` - ShortURL At  
+- `shorturl.at` - ShortURL At
+- `sl1nk.com` - urlshort.dev
 - `smu.sg` - Singapore Management University  
 - `smq.tc` - part of bit.ly  
 - `snip.ly` - Sniply.io  
