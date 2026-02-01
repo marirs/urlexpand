@@ -13,7 +13,7 @@ This module recognizes hundreds of popular URL shorteners and expands them to th
 
 - async
 ```toml
-urlexpand = "0.2.11"
+urlexpand = "0.3.0"
 ```
 
 and then
@@ -31,7 +31,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.11", features = ["blocking"] }
+urlexpand = { version = "0.3.0", features = ["blocking"] }
 ```
 
 and then
@@ -42,8 +42,8 @@ use urlexpand::unshorten;
 
 fn main() {
     let url = "https://bit.ly/3alqLKi";
-    assert!(unshorten_blocking(url, Some(Duration::from_secs(10))).is_ok());   // with timeout
-    assert!(unshorten_blocking(url, None).is_ok());    // without timeout
+    assert!(unshorten(url, Some(Duration::from_secs(10))).is_ok());   // with timeout
+    assert!(unshorten(url, None).is_ok());    // without timeout
 }
 ```
 

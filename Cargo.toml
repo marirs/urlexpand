@@ -1,15 +1,15 @@
 [package]
 name = "urlexpand"
-version = "0.2.11"
+version = "0.3.0"
 description = "Expand / Unshorten an exhaustive list of Shortened URL's"
 authors = ["Marirs <marirs@gmail.com>"]
-keywords = ["expand", "unshorten", "url", "link"]
+keywords = ["expand", "unshorten", "unshort", "url", "link"]
 categories = ["web-programming"]
 repository = "https://github.com/marirs/urlexpand"
 homepage = "https://github.com/marirs/urlexpand"
 license-file = "LICENSE"
 readme = "README.md"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 base64 = "0.22.1"
@@ -19,7 +19,7 @@ regex = "1"
 reqwest = { version = "0.13.1", features = ["native-tls-vendored", "json"] }
 serde = { version = "1.0.228", features = ["derive"] }
 thiserror = "2"
-tokio = { version = "1.19.2", optional = true }
+tokio = { version = "1.19.2", optional = true, features = ["rt", "rt-multi-thread"] }
 url = "2.2.2"
 
 [dev-dependencies]

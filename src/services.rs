@@ -160,7 +160,43 @@ pub(crate) static SERVICES: &[&str] = &[
     "zpr.io",
 ];
 
-/// Check and tell which URL Shortner Service is used
 pub(crate) fn which_service(url: &str) -> Option<&'static str> {
+    //! Identifies which URL shortening service is used for a given URL.
+    //!
+    //! This function searches the URL string for any domain that matches known
+    //! shortening services listed in the [`SERVICES`] array.
+    //!
+    //! # Arguments
+    //!
+    //! * `url` - The URL string to check for known shortener domains
+    //!
+    //! # Returns
+    //!
+    //! Returns `Some(&'static str)` with the name of the matching shortener service
+    //! if found, or `None` if the URL doesn't contain any known shortener domains.
+    //!
+    //! # Behavior
+    //!
+    //! - Uses substring-based matching (not strict hostname matching)
+    //! - Returns the first matching service from the [`SERVICES`] list
+    //! - Case-sensitive matching based on the exact strings in [`SERVICES`]
+    //!
+    //! # Example
+    //!
+    //! ```ignore
+    //! use urlexpand::services::which_service;
+    //!
+    //! let url = "https://bit.ly/abc123";
+    //! assert_eq!(which_service(url), Some("bit.ly"));
+    //!
+    //! let normal_url = "https://example.com/page";
+    //! assert_eq!(which_service(normal_url), None);
+    //! ```
+    //!
+    //! # Note
+    //!
+    //! This is a fast, first-pass filter used by the URL expansion logic to determine
+    //! which resolver to use. The substring-based approach may produce false positives
+    //! in rare cases but provides good performance for typical usage.
     SERVICES.iter().find(|&x| url.contains(x)).copied()
 }
