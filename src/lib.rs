@@ -240,14 +240,23 @@ async fn unshorten_impl(url: &str, timeout: Option<Duration>) -> Result<String> 
             let service = which_service(&validated_url).ok_or(Error::NoString)?;
 
             match service {
+                // Browser UA Resolvers (services that require browser user agent)
+                "2cm.es" | "rb.gy" => resolvers::browser::unshort(&validated_url, timeout).await,
+
+                // Curl UA Resolvers (services that work with curl user agent)
+                "bit.ly" | "b.link" | "buff.ly" | "cutt.ly" | "fb.me" | "git.io"
+                | "goo.gl" | "kutt.it" | "ow.ly" | "plu.sh" | "rlu.ru"
+                | "t.co" | "t.ly" | "t2m.io" | "tiny.cc" | "tinyurl.com" | "tny.sh" => {
+                    resolvers::curl::unshort(&validated_url, timeout).await
+                }
+
                 // Adfly Resolver
                 "adf.ly" | "atominik.com" | "fumacrom.com" | "intamema.com" | "j.gs" | "q.gs" => {
                     resolvers::adfly::unshort(&validated_url, timeout).await
                 }
 
                 // Redirect Resolvers
-                "gns.io" | "ity.im" | "ldn.im" | "nowlinks.net" | "rlu.ru" | "tinyurl.com"
-                | "tr.im" | "u.to" | "vzturl.com" => {
+                "gns.io" | "ity.im" | "ldn.im" | "nowlinks.net" | "tr.im" | "u.to" | "vzturl.com" => {
                     resolvers::redirect::unshort(&validated_url, timeout).await
                 }
 
@@ -261,7 +270,7 @@ async fn unshorten_impl(url: &str, timeout: Option<Duration>) -> Result<String> 
                 "shorturl.at" => resolvers::shorturl::unshort(&validated_url, timeout).await,
                 "surl.li" => resolvers::surlli::unshort(&validated_url, timeout).await,
 
-                // Generic Resolvers
+                // Generic Resolvers (fallback for everything else)
                 _ => resolvers::generic::unshort(&validated_url, timeout).await,
             }
         })

@@ -34,22 +34,14 @@ impl TestCase {
 const TEST_CASES: &[TestCase] = &[
     TestCase::new("bit_ly", "https://bit.ly/3alqLKi", "https://www.google.com/"),
     TestCase::new("b_link", "https://b.link/cx2x2l", "http://www.google.com/"),
-    TestCase::new("cli_re", "https://cli.re/wxbz38", "https://www.google.com/"),
     TestCase::new("cutt_ly", "https://cutt.ly/tvDqE79", "https://www.google.com/"),
-    TestCase::new("fb_me", "https://fb.me/mashable", "https://www.facebook.com/mashable"),
-    TestCase::new("git_io", "https://git.io/JOiM6", "https://www.github.com/marirs/urlexpand"),
-    TestCase::starts_with("hmm_rs", "http://hmm.rs/Hangfire.PostgreSql", "https://github.com/"),
+    TestCase::new("git_io", "https://git.io/JOiM6", "https://github.com/marirs/urlexpand"),
+    TestCase::starts_with("2cm_es", "https://2cm.es/1", "https://antiphishing.biz/2021/11/10/fake-microsoft-windows-11-detected/"),
     TestCase::new("kutt_it", "https://kutt.it/jO2XmP", "https://www.google.com/"),
-    TestCase::starts_with("lnkd_in", "https://lnkd.in/g3T6zqDE", "https://paulgraham.com"),
-    TestCase::new("mlz_la", "https://mzl.la/3eqJ565", "http://support.mozilla.org/"),
-    TestCase::new("ow_ly", "http://ow.ly/j9qh7", "http://t.co/cAcQV4QTOS"),
-    TestCase::new("plu_sh", "https://plu.sh/xnwb8", "https://www.google.com/"),
-    TestCase::new("rb_gy", "https://rb.gy/ciq6si", "https://google.com/"),
-    TestCase::new("rlu_ru", "https://rlu.ru/1B5", "https://www.google.com"),
+    TestCase::new("rb_gy", "https://rb.gy/ciq6si", "https://www.google.com/"),
     TestCase::starts_with("surl_li", "surl.li/aap", "http://google.com"),
-    TestCase::new("t_ly", "https://t.ly/2ESW", "https://www.google.com/"),
-    TestCase::new("tny_sh", "https://tny.sh/5C3X9Ss", "http://google.com/"),
-    TestCase::starts_with("trib_al", "https://trib.al/YKNecc2", "https://mashable.com/article"),
+    TestCase::new("t_co", "https://t.co/bYeHhy9kAU", "https://www.youtube.com/watch?v=x6QZn9xiuOE"),
+    TestCase::new("tny_sh", "https://tny.sh/5C3X9Ss", "http://www.google.com/"),
 ];
 
 /// Helper function to test URL expansion

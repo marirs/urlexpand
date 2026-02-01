@@ -4,6 +4,8 @@ use reqwest::{redirect::Policy, Client, ClientBuilder, StatusCode};
 
 pub(crate) mod adfly;
 pub(crate) mod adfocus;
+pub(crate) mod browser;
+pub(crate) mod curl;
 pub(crate) mod generic;
 pub(crate) mod linkedin;
 pub(crate) mod redirect;
