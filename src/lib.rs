@@ -244,8 +244,8 @@ async fn unshorten_impl(url: &str, timeout: Option<Duration>) -> Result<String> 
                 "2cm.es" | "rb.gy" => resolvers::browser::unshort(&validated_url, timeout).await,
 
                 // Curl UA Resolvers (services that work with curl user agent)
-                "bit.ly" | "b.link" | "buff.ly" | "cutt.ly" | "fb.me" | "git.io"
-                | "kutt.it" | "ow.ly" | "plu.sh" | "rlu.ru"
+                "bit.ly" | "b.link" | "cutt.ly" | "fb.me" | "git.io"
+                | "kutt.it" | "plu.sh" | "rlu.ru"
                 | "t.co" | "t.ly" | "t2m.io" | "tiny.cc" | "tinyurl.com" | "tny.sh" => {
                     resolvers::curl::unshort(&validated_url, timeout).await
                 }
@@ -265,7 +265,8 @@ async fn unshorten_impl(url: &str, timeout: Option<Duration>) -> Result<String> 
 
                 // Specific Resolvers
                 "adfoc.us" => resolvers::adfocus::unshort(&validated_url, timeout).await,
-                "goo.gl" => resolvers::google::unshort(&validated_url, timeout).await,
+                "goo.gl" => resolvers::fallback::unshort(&validated_url, timeout).await,
+                "ow.ly" => resolvers::fallback::unshort(&validated_url, timeout).await,
                 "l1nq.com" | "sl1nk.com" => resolvers::urlshortdev::unshort(&validated_url, timeout).await,
                 "lnkd.in" => resolvers::linkedin::unshort(&validated_url, timeout).await,
                 "shorturl.at" => resolvers::shorturl::unshort(&validated_url, timeout).await,

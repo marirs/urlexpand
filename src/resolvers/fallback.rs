@@ -1,4 +1,4 @@
-// GOOGLE Resolver - Hybrid approach using reqwest + curl fallback
+// FALLBACK Resolver - Hybrid approach using reqwest + curl fallback
 use std::process::Command;
 use std::time::Duration;
 
@@ -6,14 +6,15 @@ use crate::Result;
 use crate::resolvers::generic;
 
 pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<String> {
-    //! Expands URLs shortened by Google services using a hybrid approach.
+    //! Expands URLs using a hybrid approach with curl fallback.
     //!
     //! This resolver first tries reqwest, and if that fails, falls back to using
-    //! the curl command to get the redirect location.
+    //! the curl command to get the redirect location. It's designed for services
+    //! that work with curl but have issues with reqwest's HTTP client.
     //!
     //! # Arguments
     //!
-    //! * `url` - The Google shortened URL to expand
+    //! * `url` - The shortened URL to expand
     //! * `timeout` - Optional timeout for HTTP requests
     //!
     //! # Returns

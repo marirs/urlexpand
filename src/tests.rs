@@ -43,6 +43,8 @@ const TEST_CASES: &[TestCase] = &[
     TestCase::starts_with("surl_li", "surl.li/aap", "http://google.com"),
     TestCase::new("t_co", "https://t.co/bYeHhy9kAU", "https://www.youtube.com/watch?v=x6QZn9xiuOE"),
     TestCase::new("tny_sh", "https://tny.sh/5C3X9Ss", "http://www.google.com/"),
+    TestCase::starts_with("ow_ly", "https://ow.ly/3alqLKi", "http://atacmobile.it/atacmobile.php?service=news&action=single&newsid=2128"),
+    TestCase::new("fb_me", "https://fb.me/3alqLKi", "https://www.facebook.com/"),
 ];
 
 /// Helper function to test URL expansion
