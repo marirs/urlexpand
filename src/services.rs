@@ -133,6 +133,7 @@ pub(crate) static SERVICES: &[&str] = &[
     "split.to",
     "spti.fi",
     "surl.li",
+    "surl.lt",
     "t.co",
     "t.ly",
     "t2m.io",
