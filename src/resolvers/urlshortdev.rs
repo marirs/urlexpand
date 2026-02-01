@@ -64,10 +64,27 @@ struct DrApiResp {
     url: Option<String>,
 }
 
-/// Extract slug from URL:
-/// 1) If encurtador redirecionamento page → last segment after "redirecionamento"
-/// 2) Otherwise, if URL belongs to a known shortener domain → last path segment
 fn extract_slug(u: &str) -> Option<String> {
+    //! Extracts the slug/identifier from a URL for API lookup.
+    //!
+    //! This function handles two cases:
+    //! 1. Encurtador redirect pages - extracts the code after "redirecionamento"
+    //! 2. Known shortener domains - extracts the last path segment
+    //!
+    //! # Arguments
+    //!
+    //! * `u` - The URL to extract the slug from
+    //!
+    //! # Returns
+    //!
+    //! Returns `Some(String)` with the extracted slug, or `None` if
+    //! no valid slug can be extracted.
+    //!
+    //! # Behavior
+    //!
+    //! - Parses the URL and extracts path segments
+    //! - Handles encurtador.dev redirect pages specially
+    //! - Falls back to last path segment for known shorteners
     let parsed = Url::parse(u).ok()?;
     let host = parsed.host_str()?.to_ascii_lowercase();
 
@@ -96,13 +113,29 @@ fn extract_slug(u: &str) -> Option<String> {
     None
 }
 
-/// Resolve slug via dr-api:
-/// - If dr-api responds with redirect → return Location target
-/// - If dr-api responds with JSON { url } → return that
 async fn resolve_via_dr_api(
     client_no_redirect: &reqwest::Client,
     slug: &str,
 ) -> Result<String> {
+    //! Resolves a slug using the Encurtador public API.
+    //!
+    //! This function calls the dr-api.encurtador.dev service to get the
+    //! final destination URL for a given slug.
+    //!
+    //! # Arguments
+    //!
+    //! * `client_no_redirect` - HTTP client configured to not follow redirects
+    //! * `slug` - The slug to resolve
+    //!
+    //! # Returns
+    //!
+    //! Returns `Ok(String)` with the resolved URL, or `Err(Error)` if resolution fails.
+    //!
+    //! # Behavior
+    //!
+    //! - Makes API call to dr-api.encurtador.dev
+    //! - Handles both redirect responses and JSON responses
+    //! - Extracts URL from Location header or JSON body
     let api_url = format!("https://dr-api.encurtador.dev/encurtamentos/{}", slug);
 
     let resp = client_no_redirect
@@ -135,8 +168,29 @@ async fn resolve_via_dr_api(
     Err(Error::Reqwest("dr-api could not resolve slug".to_string()))
 }
 
-/// Resolver for urlshort.dev-style links
 pub(crate) async fn unshort(url: &str, timeout: Option<Duration>) -> Result<String> {
+    //! Expands URLs from urlshort.dev, l1nq.com, and associated services.
+    //!
+    //! This resolver handles the complex two-stage resolution process used by
+    //! urlshort.dev services, which may involve HTTP redirects followed by
+    //! API-based resolution for JavaScript redirects.
+    //!
+    //! # Arguments
+    //!
+    //! * `url` - The shortened URL to expand
+    //! * `timeout` - Optional timeout for HTTP requests
+    //!
+    //! # Returns
+    //!
+    //! Returns `Ok(String)` with the final destination URL on success,
+    //! or `Err(Error)` if the URL cannot be expanded.
+    //!
+    //! # Resolution Process
+    //!
+    //! 1. Follow standard HTTP redirects to reach the final landing page
+    //! 2. Extract the slug from the landing page or original URL
+    //! 3. Call the Encurtador API to resolve the final destination
+    //! 4. Return the resolved URL
     ready(get_client_builder(timeout).build())
         .map_err(Error::from)
         .and_then(|client| async move {

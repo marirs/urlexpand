@@ -18,8 +18,27 @@ use crate::Result;
 
 static  UA: &str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:145.0) Gecko/20100101 Firefox/145.0";
 
-/// get the reqwest ClientBuilder
+/// Get the reqwest ClientBuilder with common configuration
 pub(crate) fn get_client_builder(timeout: Option<Duration>) -> ClientBuilder {
+    //! Creates a configured reqwest ClientBuilder for HTTP requests.
+    //!
+    //! This function sets up common HTTP client configuration used across
+    //! all resolvers, including user agent, SSL certificate handling,
+    //! and optional timeout settings.
+    //!
+    //! # Arguments
+    //!
+    //! * `timeout` - Optional timeout for HTTP requests
+    //!
+    //! # Returns
+    //!
+    //! Returns a configured `ClientBuilder` ready for use.
+    //!
+    //! # Configuration
+    //!
+    //! - Sets a realistic browser User-Agent string
+    //! - Accepts invalid SSL certificates (for some shorteners)
+    //! - Applies timeout if provided
     match timeout {
         Some(x) => Client::builder().timeout(x),
         None => Client::builder(),
@@ -30,6 +49,20 @@ pub(crate) fn get_client_builder(timeout: Option<Duration>) -> ClientBuilder {
 
 /// Reqwest Custom Redirect Policy
 pub(crate) fn custom_redirect_policy() -> Policy {
+    //! Creates a custom redirect policy for safe URL expansion.
+    //!
+    //! This policy prevents potentially malicious cross-domain redirects
+    //! while allowing legitimate same-domain redirect chains.
+    //!
+    //! # Returns
+    //!
+    //! Returns a `Policy` that stops redirects when the domain changes.
+    //!
+    //! # Behavior
+    //!
+    //! - Allows redirects within the same domain
+    //! - Stops redirects when the domain changes from the original
+    //! - Prevents potential redirect loops or malicious chains
     Policy::custom(|attempt| {
         let n_attempt = attempt.previous().len();
         if attempt.previous()[0].host() != attempt.previous()[n_attempt - 1].host() {
@@ -40,8 +73,29 @@ pub(crate) fn custom_redirect_policy() -> Policy {
     })
 }
 
-/// Get Page Content if status!=200
+/// Get Page Content if status != 200
 pub(crate) async fn from_url_not_200(url: &str, timeout: Option<Duration>) -> Result<String> {
+    //! Fetches HTML content from URLs that typically return non-200 status codes.
+    //!
+    //! Many URL shorteners return non-200 status codes (like 302, 403, etc.)
+    //! before showing their redirect pages. This function specifically handles
+    //! those cases by returning the content when the status is not 200 OK.
+    //!
+    //! # Arguments
+    //!
+    //! * `url` - The URL to fetch content from
+    //! * `timeout` - Optional timeout for HTTP requests
+    //!
+    //! # Returns
+    //!
+    //! Returns `Ok(String)` with the HTML content if status != 200,
+    //! or `Err(Error::NoString)` if status is 200 or if the request fails.
+    //!
+    //! # Behavior
+    //!
+    //! - Sets appropriate headers for HTML content
+    //! - Returns content only when status code is not 200
+    //! - Returns error for 200 status (expected for these shorteners)
     ready(get_client_builder(timeout).build())
         .and_then(|client| async move {
             client
@@ -66,8 +120,29 @@ pub(crate) async fn from_url_not_200(url: &str, timeout: Option<Duration>) -> Re
         .await
 }
 
-/// get page content irrespective of status code
+/// Get page content irrespective of status code
 pub(crate) async fn from_url(url: &str, timeout: Option<Duration>) -> Result<String> {
+    //! Fetches HTML content from URLs regardless of HTTP status code.
+    //!
+    //! This function is used when we need to examine the actual HTML content
+    //! of a page, regardless of whether the request was successful or not.
+    //! It's commonly used for parsing redirect pages or error pages.
+    //!
+    //! # Arguments
+    //!
+    //! * `url` - The URL to fetch content from
+    //! * `timeout` - Optional timeout for HTTP requests
+    //!
+    //! # Returns
+    //!
+    //! Returns `Ok(String)` with the HTML content of the page,
+    //! or `Err(Error)` if the request fails.
+    //!
+    //! # Behavior
+    //!
+    //! - Sets appropriate headers for HTML content
+    //! - Returns content for any status code
+    //! - Used for parsing pages that may contain redirect information
     ready(get_client_builder(timeout).build())
         .and_then(|client| async move {
             client
@@ -88,6 +163,26 @@ pub(crate) async fn from_url(url: &str, timeout: Option<Duration>) -> Result<Str
 
 /// Extract text from regex pattern
 fn from_re(txt: &str, p: &str) -> Option<String> {
+    //! Extracts the first capture group from text using a regex pattern.
+    //!
+    //! This helper function is used throughout resolvers to extract URLs
+    //! or other information from HTML content using regular expressions.
+    //!
+    //! # Arguments
+    //!
+    //! * `txt` - The text to search within
+    //! * `p` - The regex pattern to use for matching
+    //!
+    //! # Returns
+    //!
+    //! Returns `Some(String)` with the first capture group if a match is found,
+    //! or `None` if no match is found or the regex is invalid.
+    //!
+    //! # Behavior
+    //!
+    //! - Compiles the regex pattern
+    //! - Returns the first capture group (skipping the full match)
+    //! - Handles regex compilation errors gracefully
     Regex::new(p)
         .ok()
         .and_then(|pattern| {
