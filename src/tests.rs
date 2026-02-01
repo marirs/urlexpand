@@ -36,6 +36,7 @@ const TEST_CASES: &[TestCase] = &[
     TestCase::new("b_link", "https://b.link/cx2x2l", "http://www.google.com/"),
     TestCase::new("cutt_ly", "https://cutt.ly/tvDqE79", "https://www.google.com/"),
     TestCase::new("git_io", "https://git.io/JOiM6", "https://github.com/marirs/urlexpand"),
+    TestCase::starts_with("googl", "https://goo.gl/cvSjeY", "http://m.axisbank.com"),
     TestCase::starts_with("2cm_es", "https://2cm.es/1", "https://antiphishing.biz/2021/11/10/fake-microsoft-windows-11-detected/"),
     TestCase::new("kutt_it", "https://kutt.it/jO2XmP", "https://www.google.com/"),
     TestCase::new("rb_gy", "https://rb.gy/ciq6si", "https://www.google.com/"),
@@ -66,7 +67,9 @@ fn test_expansion(result: super::Result<String>, test_case: &TestCase) -> std::r
                 ))
             }
         }
-        Err(e) => Err(format!("{}: Request failed: {:?}", test_case.name, e)),
+        Err(e) => {
+            Err(format!("{}: Request failed: {}", test_case.name, e))
+        }
     }
 }
 

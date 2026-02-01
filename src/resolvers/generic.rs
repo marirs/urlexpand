@@ -96,12 +96,11 @@ pub(crate) async fn unshort_with_curl_ua(url: &str, timeout: Option<Duration>) -
     //!
     //! # Behavior
     //!
-    //! - Uses curl user agent string
+    //! - Uses custom user agent string
     //! - Uses default redirect policy (allows cross-domain redirects)
     //! - Follows standard HTTP 3xx redirects automatically
-    //! - Returns the final URL from the last response
     ready(get_client_builder(timeout)
-        .user_agent("curl/8.7.1")
+        .user_agent("URLEXPANDER/0.3")
         .build())
         .and_then(|client| async move { client.get(url).send().await })
         .map_ok(|response| response.url().as_str().into())
