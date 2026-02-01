@@ -152,6 +152,7 @@ pub(crate) static SERVICES: &[&str] = &[
     "vzturl.com",
     "waa.ai",
     "washex.am",
+    "we.tl",
     "x.co",
     "y2u.be",
     "yt.vu",

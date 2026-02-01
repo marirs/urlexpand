@@ -13,7 +13,7 @@ This module recognizes hundreds of popular URL shorteners and expands them to th
 
 - async
 ```toml
-urlexpand = "0.2.10"
+urlexpand = "0.2.11"
 ```
 
 and then
@@ -31,7 +31,7 @@ fn main() {
 
 - blocking
 ```toml
-urlexpand = { version = "0.2.10", features = ["blocking"] }
+urlexpand = { version = "0.2.11", features = ["blocking"] }
 ```
 
 and then
@@ -156,6 +156,7 @@ cargo run --example unshorten https://bit.ly/3alqLKi
 - `vzturl.com` - Vzt URL  
 - `waa.ai` - Akari Link Shortner  
 - `washex.am` - part of bit.ly  
+- `we.tl` - WeTransfer
 - `x.co` - GoDaddy URL Shortner (currently shutdown)  
 - `y2u.be` - YouTube URL Shortner by Firewrench inc.  
 - `yt.vu` - YT.vu
